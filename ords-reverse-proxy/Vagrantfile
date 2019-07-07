@@ -1,54 +1,3 @@
-# Copyright © 2019 Oracle and/or its affiliates. All rights reserved.
-# Licensed under the Universal Permissive License v 1.0 as shown at http://oss.oracle.com/licenses/upl.
-#
-#    FILE NAME
-#      vagrantfile
-#
-#    DESCRIPTION
-#      Creates Oracle Application Express Vagrant virtual machines.
-#
-#    NOTES
-#       DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
-#
-#    AUTHOR
-#       Simon Coter
-#
-#    MODIFIED   (MM/DD/YY)
-#    scoter     03/04/19 - Creation
-#
-#    REVISION
-#    20190304 - $Revision: 1.0 $
-#
-#
-
-### -------------------------------------------------------------------
-### Disclaimer:
-###
-### EXCEPT WHERE EXPRESSLY PROVIDED OTHERWISE, THE INFORMATION, SOFTWARE,
-### PROVIDED ON AN \"AS IS\" AND \"AS AVAILABLE\" BASIS. ORACLE EXPRESSLY DISCLAIMS
-### ALL WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING, BUT NOT
-### LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
-### PURPOSE AND NON-INFRINGEMENT. ORACLE MAKES NO WARRANTY THAT: (A) THE RESULTS
-### THAT MAY BE OBTAINED FROM THE USE OF THE SOFTWARE WILL BE ACCURATE OR
-### RELIABLE; OR (B) THE INFORMATION, OR OTHER MATERIAL OBTAINED WILL MEET YOUR
-### EXPECTATIONS. ANY CONTENT, MATERIALS, INFORMATION OR SOFTWARE DOWNLOADED OR
-### OTHERWISE OBTAINED IS DONE AT YOUR OWN DISCRETION AND RISK. ORACLE SHALL HAVE
-### NO RESPONSIBILITY FOR ANY DAMAGE TO YOUR COMPUTER SYSTEM OR LOSS OF DATA THAT
-### RESULTS FROM THE DOWNLOAD OF ANY CONTENT, MATERIALS, INFORMATION OR SOFTWARE.
-###
-### ORACLE RESERVES THE RIGHT TO MAKE CHANGES OR UPDATES TO THE SOFTWARE AT ANY
-### TIME WITHOUT NOTICE.
-###
-### Limitation of Liability:
-###
-### IN NO EVENT SHALL ORACLE BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-### SPECIAL OR CONSEQUENTIAL DAMAGES, OR DAMAGES FOR LOSS OF PROFITS, REVENUE,
-### DATA OR USE, INCURRED BY YOU OR ANY THIRD PARTY, WHETHER IN AN ACTION IN
-### CONTRACT OR TORT, ARISING FROM YOUR ACCESS TO, OR USE OF, THE SOFTWARE.
-### -------------------------------------------------------------------
-### This script is NOT supported by Oracle World Wide Technical Support.
-### The script has been tested and appears to work as intended.
-
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
@@ -57,7 +6,7 @@ VAGRANTFILE_API_VERSION = "2"
 
 # define hostname
 NAME      = "oracle18c-ords191-reverseproxy"
-MEM_SIZE  = 8192
+MEM_SIZE  = 4096
 CPUS      = 4
 
 
@@ -117,9 +66,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.hostname = NAME
 
   # Oracle port forwarding
-  config.vm.network "forwarded_port", guest: 1521, host: 1521
-  config.vm.network "forwarded_port", guest: 5500, host: 5500
-  config.vm.network "forwarded_port", guest: 8080, host: 8080
+ # config.vm.network "forwarded_port", guest: 1521, host: 1521
+ # config.vm.network "forwarded_port", guest: 5500, host: 5500
  
   # Provision and update Oracle Linux 7
   config.vm.provision "shell", path: "scripts/install.sh"
@@ -131,10 +79,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
        "SYSTEM_TIMEZONE"     => SYSTEM_TIMEZONE
     }
 
+  # Provision Tomcat
+  config.vm.provision "shell", path: "scripts/tomcat.sh"
+
   # Provision Oracle Rest Data Services on the first run
   config.vm.provision "shell", path: "scripts/ords.sh"
 
- # Provision Varnish
+  # Provision Varnish
   config.vm.provision "shell", path: "scripts/varnish.sh"
 
 end

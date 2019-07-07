@@ -1,5 +1,7 @@
 #!/bin/bash
-yum install -y pygpgme yum-utils
+yum update -y
+yum install -y epel-release
+yum install -y pygpgme yum-utils python36 mlocate python36-docutils python3-sphinx
 
 cat > /etc/yum.repos.d/varnishcache_varnish62.repo << EOF
 [varnishcache_varnish62]
@@ -25,7 +27,7 @@ sslcacert=/etc/pki/tls/certs/ca-bundle.crt
 EOF
 
 yum -q makecache -y --disablerepo='*' --enablerepo='varnishcache_varnish62'
-yum install -y varnish varnish-devel varnish-libs-devel git automake libtool
+yum install -y varnish varnish-devel git automake libtool wget
 git clone https://github.com/nigoroll/varnish-modules.git
 cd varnish-modules
 ./bootstrap

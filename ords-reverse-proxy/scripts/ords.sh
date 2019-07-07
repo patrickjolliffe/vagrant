@@ -31,7 +31,7 @@ mkdir $ORACLE_BASE/ords
 export ORDS_HOME=$ORACLE_BASE/ords
 echo "export ORDS_HOME=$ORACLE_BASE/ords" >> /home/oracle/.bashrc
 cd  $ORDS_HOME
-ORDS_INSTALL=`ls /vagrant/ords[_-]1*.*.zip |tail -1`
+ORDS_INSTALL=`ls /vagrant/software/ords[_-]1*.*.zip |tail -1`
 unzip $ORDS_INSTALL
 chown -R oracle:oinstall $ORDS_HOME
 
@@ -70,13 +70,6 @@ user.public.password=oracle
 user.tablespace.default=SYSAUX
 user.tablespace.temp=TEMP
 EOF
-
-su -l oracle -c "cd $ORACLE_HOME/apex; sqlplus / as sysdba <<EOF
-        alter session set container=$ORACLE_PDB;
-        alter user APEX_LISTENER identified by \"${ORACLE_PWD}\" account unlock;
-        alter user APEX_REST_PUBLIC_USER identified by \"${ORACLE_PWD}\" account unlock;
-        exit;
-EOF"
 
 cat > $ORDS_HOME/config/ords/standalone/standalone.properties << EOF
 jetty.port=8080
