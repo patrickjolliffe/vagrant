@@ -1,0 +1,684 @@
+<html>
+
+<head>
+	<link href="data:image/x-icon;base64,AAABAAEAICAQAAEABADoAgAAFgAAACgAAAAgAAAAQAAAAAEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAOkAAAH1AAIA+wAAAP8AIiTyAERH9gBfYfgAdnr5AImM9gCio/sAurv8ANjZ/QDn6f8A8vH/APv9/wAAAAAA///////////////////////////////yP/////////////////8zMQEz//////////////8yIREAADP///////////8yIRERAAAAI/////////8zIRF67u2nAAAT////////MSFO7u3u7uQAA////////zETnu2pmu7YAAP///////8xMqh5zuuYiAAD////////MRFe7u3u7uUAAP//////8zExne6pqu7YQAE///////MRE6h5vtuYiAAAP//////zMzJe7u3u3uUAAD//////8xETre6qm+7YAAA///////MREah5vMuImAAAP//////zEzNe7u7u7sUAAD//////8RMRne7e7u7oAAA///////MxIRnu7t7ugAAAD/////8zESERFGd2QAAAAAP/////MTERIbMXUEoAAAAD/////zEhMU3lCmB9xAAAA/////8xEhIeWDuAl7AAAAP/////MRMxxBMbgABrAAAD/////zEUZxERHZAAAIZAAf////8hExERFs7eQAAAAAH////zMzERMxKu5wAAAAABP///8yERIxERHsAAAAAAAT////MzIREyIxYAAAAAABE/////8zMzIRERAAAAETM/////////8zMzIgASMz//////////////8zMzP/////////////////////////////////////5////wD///wAP//wAA//wAAD/8AAA//AAAP/wAAD/8AAA/+AAAH/gAAB/4AAAf+AAAH/gAAB/4AAAf+AAAH/gAAB/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP4AAAB+AAAAfgAAAH+AAAH/+AAf//+B///////w=="
+	 rel="icon" type="image/x-icon" />
+	<title>Oracle REST Data Services (19.1.0.r0921545) Release Notes
+	</title>
+	<style type="text/css" media="screen">
+		h2,
+		ul {
+			margin-bottom: 8.5px
+		}
+
+		p,
+		pre {
+			margin: 0 0 8.5px
+		}
+
+		body,
+		pre {
+			line-height: 1.42857143;
+			color: #333
+		}
+
+		body {
+			margin: 0;
+			font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+			font-size: 12px;
+			background-color: #fff
+		}
+
+		header {
+			display: block
+		}
+
+		a:active,
+		a:hover {
+			outline: 0
+		}
+
+		img {
+			border: 0;
+			vertical-align: middle
+		}
+
+		@media print {
+			img,
+			pre {
+				page-break-inside: avoid
+			}
+			* {
+				color: #000 !important;
+				text-shadow: none !important;
+				background: 0 0 !important;
+				-webkit-box-shadow: none !important;
+				box-shadow: none !important
+			}
+			a,
+			a:visited {
+				text-decoration: underline
+			}
+			a[href]:after {
+				content: " (" attr(href) ")"
+			}
+			pre {
+				border: 1px solid #999
+			}
+			img {
+				max-width: 100% !important
+			}
+			h2,
+			p {
+				orphans: 3;
+				widows: 3
+			}
+			h2 {
+				page-break-after: avoid
+			}
+			.navbar {
+				display: none
+			}
+		}
+
+		.navbar-brand:focus,
+		.navbar-brand:hover,
+		a {
+			text-decoration: none
+		}
+
+		*,
+		:after,
+		:before {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box
+		}
+
+		a {
+			background: 0 0;
+			color: #428bca
+		}
+
+		a:focus,
+		a:hover {
+			color: #2a6496;
+			text-decoration: underline
+		}
+
+		a:focus {
+			outline: dotted thin;
+			outline: -webkit-focus-ring-color auto 5px;
+			outline-offset: -2px
+		}
+
+		h2 {
+			font-family: inherit;
+			font-weight: 500;
+			line-height: 1.1;
+			color: inherit;
+			margin-top: 17px;
+			font-size: 25px
+		}
+
+		ul {
+			margin-top: 0
+		}
+
+		pre {
+			overflow: auto;
+			font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+			display: block;
+			padding: 8px;
+			font-size: 11px;
+			word-break: break-all;
+			word-wrap: break-word;
+			background-color: #f5f5f5;
+			border: 1px solid #ccc;
+			border-radius: 4px
+		}
+
+		.container {
+			padding-right: 15px;
+			padding-left: 15px;
+			margin-right: auto;
+			margin-left: auto
+		}
+
+		@media (min-width :768px) {
+			.container {
+				width: 750px
+			}
+		}
+
+		@media (min-width :992px) {
+			.container {
+				width: 970px
+			}
+		}
+
+		@media (min-width :1200px) {
+			.container {
+				width: 1170px
+			}
+		}
+
+		.navbar {
+			position: relative;
+			min-height: 50px;
+			margin-bottom: 17px;
+			border: 1px solid transparent
+		}
+
+		.container>.navbar-header {
+			margin-right: -15px;
+			margin-left: -15px
+		}
+
+		.navbar-static-top {
+			z-index: 1000;
+			border-width: 0 0 1px
+		}
+
+		.navbar-brand {
+			float: left;
+			height: 50px;
+			padding: 16.5px 15px;
+			font-size: 15px;
+			line-height: 17px
+		}
+
+		@media (min-width :768px) {
+			.navbar {
+				border-radius: 4px
+			}
+			.navbar-header {
+				float: left
+			}
+			.container>.navbar-header {
+				margin-right: 0;
+				margin-left: 0
+			}
+			.navbar-static-top {
+				border-radius: 0
+			}
+			.navbar>.container .navbar-brand {
+				margin-left: -15px
+			}
+		}
+
+		.navbar-default {
+			background-color: #f0f0f0;
+			border-color: #dfdfdf
+		}
+
+		.navbar-default .navbar-brand {
+			color: #707070
+		}
+
+		.navbar-default .navbar-brand:focus,
+		.navbar-default .navbar-brand:hover {
+			color: #222;
+			background-color: transparent
+		}
+
+		.container:after,
+		.container:before,
+		.navbar-header:after,
+		.navbar-header:before,
+		.navbar:after,
+		.navbar:before {
+			display: table;
+			content: " "
+		}
+
+		.container:after,
+		.navbar-header:after,
+		.navbar:after {
+			clear: both
+		}
+	</style>
+</head>
+
+<body>
+
+	<header class="navbar navbar-default navbar-static-top" id="top" role="banner">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" style="padding: 5.5px 15px;" href="http://www.oracle.com/technetwork/developer-tools/rest-data-services/overview/index.html"
+				 target="_blank">
+					<img style="height: 40px; margin-right: 5px;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAACjZJREFUeNrcW2lwFMcV/npmtSDtSgIVOFQsbofDR8DBUAbMZQ6bOEGJAbtI/CN/uA3lMpAygVTioojL5TgYxGUI2BgqgRgfSAKDJIJjbhwwOIAFYaVgCEaCSKuAjj1mOq9nR9JqD+3M7KyBdNW3u6DZmX7fvPe+93p7GOccSQ3GcEdHkvNnd5AAmfAwQSGcJ6j/7wS4CIMJIwjDCEMJ2frfagmHCUcIhwgnCA33OgFddCNH6u8/IKRFzV+cIvq7AcIpnYwmYirvZgLESz/CcMIT+h3+XqzD1TCIK3sJEsGps9NOj40Y4yLhKOEz/b1MO8UdIYAxMc9BurHDdYM7xTpUCTM41vDGOr1OhjOMmBjjhk5Ek5ecJDJ8qSGAsRzdyKa7O0S/WVHurOpGG6XVa/A4Rxghzthh00j4XA+Xgxo5nFdbJ4CxSfT6jG50/1jXjHRnK8Nr8XtSBCExwobr6iK8YzeRUWCWAPGFH0carFjWqxg6+Gweqj/eBW7DCROETSERMCkekfFGeVMM+3QEbDSe5WbBsWUbMleusqceIvgJtwnVumTcjrDFEgFSigo4x9aPAbcb6XNfRLsxI1JzjZaPHisEVCB2skne9efMgjR6TLOMZm3aApYCpuUIWyx5gN2DdcuB4/U3Wk+iZ09k5q9OpQdUWFEBV1MY+WyclPPTA2CjRses6LxjR8F34KBt1/pOeBnOeb05D+C8jl6v2xkG8otzYhsfHgqy7e7/TTzjjeS4crsI0Fx/8RLwI4ehvr0eqKpq/puvsAD+jz4EVxRShfxvLf4jwiRuIhwmxZA/0QLIy5aBpaeDnz4FpehP4DVtyNTX1fDdf39LKAwcCHbffdrnhjX58O0rhVGyHQ/kwvnDn8DRsxeCnkuoX702pQTEnJRIHcGlvw6dZNpzSCs6BF5fD3XVW1AK9yTW7dra5vNyb3UrPY9X6KTPnY2MWbMRPHsWDRvWoX7V6qQSoBECDIVA8M9/AQiispM3b4F8oQyBn+Vpdz1uSHhbimDV+582z9/uyZHI2vwe1FovaqdNQeDsRTMh4ElUUtuWA5QPdyHwWH+w7j2QdsYDedSw+B4QRgCvvhZ/FeWl+ehQ+imCRGr1gIGGjI+4s+XJEFBhuiS9fBOBp0aDtW8Px54SSIMeCd2RieMhPz2uVQg0e8CNQPPnjNkztRjXPs+aAfeKlVAuXoR34tOmGq4wD/hXMgRc1UtsU0M974Hy6m/IggykfbQbzh3biYxiqKcPhbWBesYMBlsZJtw855wHWWvXwC1inJLNf3/xc1MNU5jH+nUbLBLAtcteNiuF0pBHKR6UUKbs2hXsuefBy8rArzdGeYDqbd0Q+/fsAEtLQ/rsOdo7r6yE3O8hpD3Y29rd521TZ6QCN9UUMepDpbzJkF9d1mq9kO/bG5EEa6JCIUQIOcU/vmw5rksXuJe/BsfQkVYISFjOGybAqAdwCufgkqXwd3dB/eNGzcU1w4o/iZkEeW30koi/pKTZO24vfgU3qX5o2PSOrT2AURlsTiJmq0F+gyMwfQakN5bB8doKqJ8Ut77TB/ci+KOJuBWLgD2F2nvdbxdBvZ26KtDYmiBjU+j1fbubomSXxNoaOS0rQlMoB3yQrAd4kp2Q1IcS4chxkB4bAvTuDZZL/87OBiep7CwOuHULak011MuXEfzqK/hPHEOgeJelu282BxjxgA70WmPWA7ReYcHLkKfPBPr0MW8FqYifWueGFW+icfdeq21wR/IAb3IEhKwRNW1HP4yt/goZTPugAMjNtcWl/ftLUZs3HmqdgWsTOoc+1pDxOXaogKnlMZZNcVX6N9uM1zrHseOQtb3Advc3Q4DHKAHS42PBMjNtT2zOpjVE47LmsZOACqMHq8f2A1eu2E5AoKTY1h7ALAGGiyFp8Ggoi38JfuK4PZarKhryV0G5etXWLtAsAcaLIarf5Q2boGzbiuDUZ8F3F5F8mK8geFUVGtat1RZKWVYW0ufNt70IMloHmK8FqAt0iE6OQkF59x2ory8Hy3CBPTIArEdPQg9wl0vLFQrdYZX6AV5TA4XqAOWfF6kWOAfWMQftJ09F9t5SsHbtUlIDmJFBUViJHRtyonsp+n7R+kaNujrw01+Ae8rBL5ND3b4FTv/X6HSS1zghU9Mjd+sGuW9fyP0fpBNFLw9XGtiNotcA4he9dJLBgD0eIE7E2L/pUzeWqBZQ43Sf4o4Pf0JD+HAbDQkDYSSHr2MYMN5MDjDcFmsqUFlpuwr4i/fZ2gVaJiCRE2oqsOhl8C/P2Ga8b+t7UC5cMOMBnjtGgFABac16KPkrobwwDepf94dWh8yqn9eLxi3vaiqgUrOUsXCR7QpgRgVMFUMiuzs2bgYuXYKyaSMCS1+hErkDGHWDrPcDoWWyDtRjUXZXAgFwgkqyp3WDF8oQPH0KkssNZ95PkV2wB8zlsn0hxJwKhJRAbHU7kqgrjKcCvLoa/OTfyTk94FevhJbCfI2oJ5+S3G5N9hwkj3K/fpAHDAQT6mBSBTq1eMFQSoLH7PYAYz+XxyGU5eSAjZ8AjG/9/1lGVcDvNxMC5fbnAM5Fak/YkKrHS8Fv3rRfBUpL2nbQsIqD5lqViiRoSAqlR0dCfWkeuIGsbVgFdr4P5fx5W3sAqwQk7gkosUmr10H93TIEZ80AP3bU0nZWUSX6dmyH96lxWomcsWCh7QpgNgcYlkKR4eUt28DPnYWycQP4/Dlgud3AhjwOqVcvTQVASiH6A22fobdG6wea1gSDnx/T1tScz0xC1o6dkIRipEACrRDgMeM27KGH4XhL3wZHxmm9QHk51MOHqLOoB0jr68hjWHoGpE6d4ejeHc4JE5DxqyWQsrNh0RBPKgkw3hZHDjKOCUQQaNRMUSukwgMsJcE2VeCzEq21tX1FqKjQ9iLICgEViZMXEBw/io6ssM143+4i1D4/2agMmtveJypBUwCu8VBe50FCYxsIzJ3N1TOnuZWhNjbyxsICXjNmBL9O54qHW6GfI7k+p2tm7TH/vABj0+l1iYjqZrdHaB9x3K90JVUYNRFs0GDqBXqH8oE7U1sjUEWFR/GtXP8G6pUrCJZRL3D8KBU+xVAD8d1WdAcRD1eIn/GXk1UbTZlj8YEJEXLiN0MhzoOavUknwswZvSYzthtRDyqcJPyesJOMD5o2xYZHZsbSq+hVJ4SHotGd5UYIcOp3PKw9EpMWW9HeJKMPJDV9Gx+aEpuBFhCmhc81qC/QWSEgXayvts7wohHdRvgDQg9D3JVPjX2XINawZxKaSzhFJ8MIAS7d+LD4Fr9NrieIbaTXjXSfqVOBaFWIh0zCQsLXvCVLcyVCKZqyObVvYkMvV8KOJXgI8wiuuNdJcv6pJKAJaYQXCF+EE6GKhV7CTZ0I3hrHCVMJcsLz3wMEhGMcYS9B5dFGK4RdhBGmznmPEdCE7xO2EvyEBsLbhL6WzpXk/NkdfnpcbCIQa11VSSSxu04Fvt2R5Pz/J8AAZCagClntSh0AAAAASUVORK5CYII="
+					/>ORACLE REST DATA SERVICES
+				</a>
+			</div>
+		</div>
+	</header>
+	<div class="container">
+		<header>
+			<h1>Oracle REST Data Services 19.1.0.r0921545</h1>
+			<h2>Release Notes</h2>
+			<p>
+				<strong>Date: April 2019</strong>
+			</p>
+		</header>
+		<h3>
+			<a href="http://www.oracle.com/technetwork/developer-tools/rest-data-services/overview/index.html" target="_blank">Oracle REST Data Services on OTN</a> |
+			<a href="http://www.oracle.com/technetwork/developer-tools/rest-data-services/downloads/index.html" target="_blank">Downloads</a> |
+			<a href="https://community.oracle.com/community/database/developer-tools/oracle_rest_data_services" target="_blank">Forum</a>
+		</h3>
+		<a id="support"></a>
+		<h2>Support</h2>
+		<ul>
+			<li>You are supported by Oracle Support under your current Oracle Database Support license for Oracle REST Data Services
+				<em>production releases
+				</em>.
+			</li>
+			<li>
+				<p>
+					Log Oracle REST Data Services bugs and issues using
+					<a href="http://support.oracle.com">My Oracle Support</a>.
+				</p>
+				<ul>
+					<li>For problems specific to SODA for REST, file a service request using
+						<em>"Oracle XML Developers Kit"</em> as the product.
+					</li>
+					<li>For
+						<em>all</em> other problems, use
+						<em>"Oracle REST Data Services"</em> as the product.
+					</li>
+				</ul>
+			</li>
+		</ul>
+		<a id="Documentation"></a>
+		<h2>Documentation</h2>
+		<ul>
+			<li>Documentation for this release is provided on the OTN web site. Click
+				<a href="http://www.oracle.com/technetwork/developer-tools/rest-data-services/documentation/index.html">here</a>
+				to view the documentation.
+			</li>
+			<li>Documentation on using SODA for REST is provided on OTN
+				<a href="http://www.oracle.com/technetwork/developer-tools/rest-data-services/documentation/index.html">here</a>.
+			</li>
+		</ul>
+		<h3>Getting Started</h3>
+		<ul>
+			<li>A tutorial on getting started with developing RESTful Services is included in the
+				<a href="http://www.oracle.com/technetwork/developer-tools/rest-data-services/documentation/index.html">product documentation
+				</a>, in the book titled 'Oracle® REST Data Services Quick Start Guide'.
+			</li>
+		</ul>
+		<a id="feedback"></a>
+		<h2>Feedback</h2>
+		<ul>
+			<li>You can discuss issues on the
+				<a href="https://community.oracle.com/community/database/developer-tools/oracle_rest_data_services">forums.</a>
+				<ul>
+					<li>Be sure to use clear subject lines to initiate a thread. Provide a complete and clear description of the issue, including
+						steps to reproduce the issue.</li>
+					<li>Try to avoid using old, unrelated threads for a new issue.</li>
+				</ul>
+			</li>
+		</ul>
+		<h2>Important Changes to Note</h2>
+		<h3>Database Management REST API</h3>
+		<p>
+			This release sees the introduction of the Database Management REST API. Please consult the ORDS
+			documentation library for instructions on how to enable this feature, which is disabled by
+			default.
+		</p>
+		<h3>Install ORDS with non SYS as SYSDBA user</h3>
+		<p>
+			The installer has been enhanced to enable installation of ORDS to a pluggable database, or a 
+			non container database without requiring use of the <code>SYS</code> user or a user with the
+			<code>SYSDBA</code> role. Note that installation to a CDB still requires use of the <code>SYS as SYSDBA</code> user. Also note that installation as a non <code>SYS</code> user requires the user to have a number of database privilege grants, please consult the ORDS documentation library 
+			for information on how to provision a database user to be able to install ORDS.
+		</p>
+		<h3>Change to scheduled housekeeping job</h3>
+		<p>
+			<code>DBMS_SCHEDULER</code> job <code>CLEAN_OLD_ORDS_SESSIONS</code> has been replaced by <code>ORDS_HOUSEKEEPING_JOB</code> which will perform the same action of deleting expired sessions that are older than one day.	
+		</p>
+		<p>
+		During upgrade to this ORDS release, the <code>CLEAN_OLD_ORDS_SESSIONS</code> job will be replaced by <code>ORDS_HOUSEKEEPING_JOB</code>, if the old job already exists, otherwise the new job will be created when the first schema is enabled via calls to <code>ORDS.ENABLE_SCHEMA</code> or <code>ORDS_ADMIN.ENABLE_SCHEMA</code> PL/SQL methods.
+        </p>
+		<h3>Deprecation of Apache FOP PDF Support</h3>
+		<p>
+			Support for generating PDF responses for PL/SQL Gateway calls will be removed in ORDS 19.2.0. This will impact the 
+			features in Oracle Application Express relating to generating PDF documents. Future versions of Oracle Application
+			Express will move to a new mechanism to generate PDF resources.
+		</p>
+		<h3>Deprecation of URI Template Syntax for ORDS Based REST Services</h3>
+		<p>
+			Support for defining ORDS based REST Services using the original URI Template syntax (as used in APEX based REST Services)
+			will be removed in ORDS 19.4.0. Customers are strongly encouraged to modify Resource Module definitions to use the more
+			robust and expressive <a href="https://docs.oracle.com/en/database/oracle/oracle-rest-data-services/18.3/ordjv/doc-files/route-patterns.html">Route Patterns Syntax</a>.
+		</p>
+		<h3>Deprecation of Regular Expression based URL Mappings</h3>
+		<p>
+		    Support for defining URL mappings using the <code>java -jar ords.war map-url --type regex</code> is deprecated. It is
+			recommended that customers use <code>--type base-path</code> or <code>--type base-url</code> instead. Support for
+			<code>--type regex</code> will be removed in ORDS 19.4.0.
+		</p>
+		<h3>Supported WebLogic Version</h3>
+		<p> Oracle REST Data Services is compatible with Oracle WebLogic 12.2.1.3 and later. It
+			is not compatible with older versions of Oracle WebLogic.
+		</p>
+		<h3>Improvements to PL/SQL Gateway to aid transition from mod_plsql</h3>
+		<p>
+			In ORDS 18.2.0 support was introduced for authenticating database users via HTTP Basic authentication (see below). In ORDS 18.3.0 the following
+			changes have been made aimed at faciliating customers migrating from Oracle mod_plsql:
+		</p>
+		<h4>Custom Authentication Stored Function Support</h4>
+		<p>
+			With mod_plsql customers enabled custom authentication by implementing a stored function named: <code>OWA_CUSTOM.AUTHORIZE</code>. Oracle
+			REST Data Services provides equivalent functionality via the <code>security.requestAuthenticationFunction</code> stored function.
+			This setting names a stored function that takes zero arguments and returns a <code>boolean</code> indicating if authentication was succesful
+			or not. The function should use the Oracle Web Agent (OWA) PL/SQL APIs to examine any or all of the following package level variables: <code>owa.user_id</code>,
+			<code>owa.password</code>, <code>owa.ip_address</code> and <code>owa.hostname</code> and/or the OWA APIs to examine the request's headers and parameters.
+		</p>
+		<p> Note that this facility is provided to assist customers migrating from existing mod_plsql installations. <em>Its use is not recommended outside
+			of these scenarios</em>, as it uses HTTP Basic authentication only.
+		</p>
+		<h4>Per Request Validation </h4>
+		<p>
+			One difference in behaviour between Oracle REST Data Services and mod_plsql is that out of the box ORDS caches the result of validating a procedure name.
+			The intent is that the set of whitelisted procedure names is fixed, and thus validation outcomes can be cached. However mod_plsql does not behave
+			this way, the request validation function is invoked on every request. In addition the request validation function is executed after the OWA (Oracle Web Agent)
+			environment has been initialized for the request, so the validation function can examine the headers and parameters of the request, and thus can
+			make decisions about whether to authorize the request based on the contents of the request in addition to the name of the procedure being invoked.
+		</p>
+		<p>Some mod_plsql customers have come to rely on this behaviour to perform application specific validation, user authentication and authorization,
+			thus to facilitate those customers, ORDS 18.3.0 provides the capability to replicate this behaviour of mod_plsql. This done by setting the 
+			configuration property named: <code>security.maxEntries</code> to zero. This can be done in <code>defaults.xml</code> (if it should apply across all pools)
+			or in a specific pools configuration file. Setting this value to zero disables caching of procedure validations, leading to behaviour equivalent to mod_plsql.
+		</p>
+		<h4>HTTP Basic dynamic authentication for PL/SQL Gateway requests</h3>
+		<p>To facilitate customers migrating from Oracle mod_plsql to Oracle REST Data Services, this release introduces support for
+			authentication of database users using HTTP Basic Authentication. This functionality is equivalent to the Basic authentication
+			mode in mod_plsql where the database user name and password are omitted from the mod_plsql DAD.</p>
+		<p>
+			<em>For performance and security reasons we strongly advise customers not to use database authentication in general</em>.
+			The only way to validate a database password is by creating a connection to the database, which is very expensive. Database
+			passwords are often weak and poorly chosen on the assumption that they are not accessible from the web. The HTTP Basic
+			Authentication scheme lacks a mechanism for terminating (logging out) a user session. The only way to end the session
+			is to close the Browser.
+		</p>
+		<p>The only scenario where using database authentication is acceptable is for migrating existing applications from mod_plsql
+			that are reliant on database authentication, and the database is appropriately configured with a strong password strength
+			and expiration policy.</p>
+		<p>
+			You can learn more about this feature in the tutorial located
+			<a href="./examples/db_auth/index.html">here</a>.
+		</p>
+		<h3>RESTful Services Pre-Hook Function</h3>
+		<p>ORDS 18.3.0 introduces the ability for a stored function to be invoked prior to the dispatching of an ORDS based RESTful Service. This facility
+			enables customers to perform additional request validation and authorization and/or configure the database session as required. In addition
+			this facility provides a means for the pre-hook to assert the identity and roles of the user making the request, thus facilitating
+			integration with custom authentication mechanisms.
+		</p>
+		<p>You can learn more about this feature in the tutorial located
+				<a href="./examples/pre_hook/index.html">here</a>.
+		</p>
+		<h3>Changes to Installation in CDB$ROOT</h3>
+		<p>
+			As of release 18.2.0, ORDS no longer installs its
+			<code>ORDS_METADATA</code> schema into the CDB$ROOT container. Now only the
+			<code>ORDS_PUBLIC_USER</code> common user is installed in the CDB$ROOT (and ALL PDBs connected to the CDB). The
+			<code>ORDS_METADATA</code> schema is installed in each PDB connected to the CDB. This aids future upgrades of ORDS, minimizing downtime as the CDB
+			and PDBs will no longer need to be all taken offline at the same time for an ORDS upgrade.
+		</p>
+		<p>
+			The installation changes are supported for Oracle database 12.1.0.2 and later in this release.
+		</p>
+		<h3>Disabling/enabling PDB Lockdown Profile during install/upgrade</h3>
+		<p>
+		For Oracle database 12.2.0.1 or later, the installer will check if the PDB
+		initialization parameter PDB_LOCKDOWN contains a PDB lockdown profile.  If a PDB lockdown profile
+		exists, then it will disable the PDB lockdown profile during ORDS install or upgrade,
+		and will enable it when the install or upgrade completes.
+		</p>
+		<p>
+		If you do not want the ORDS installer disabling the PDB lockdown profile during ORDS
+		install or upgrade, then you can set the pdb.disable.lockdown property
+		to false in the ORDS parameter file:
+		</p>
+		<code>pdb.disable.lockdown=false</code>	
+		<h3>Supported Java Version</h3>
+		<p>
+			Oracle REST Data Services requires Java 8 or later. Java 7 is no longer supported. Please consult the documentation for the
+			minimum supported Application Server versions for ORDS.
+		</p>
+		<h2>Changes in 19.1.0</h2>
+		The following changes and enhancements have been made since 18.4.0:
+		<h3>Issues Fixed in 19.1.0</h3>
+
+		<a id="19.1.0-changes"></a>
+		<ul>
+			<li>BUG:29544918 - Fix problem with Standalone Mode producing WARN level messages during startup</li>
+			<li>BUG:29532796 - Fix problem with WebLogic raising 'Cannot contain CRLF Charcters' (sic) error</li>
+			<li>BUG:29524572 - Remove Apache Avalon third party dependency</li>
+			<li>BUG:29193867 - Fix problem with invocation of ORDS_ADMIN.DEFINE_SERVICE and ORDS_ADMIN.DEFINE_HANDLER APIs</li>
+			<li>BUG:29290410 - Add DOC_SIZE, DAD_CHARSET and CONTENT_TYPE to file upload in document table</li>
+			<li>BUG:29303722 - Improve how string arrays are transferred from ORDS to the database on 12C and later</li>
+            <li>BUG:29210421 - ORDS corrupting timestamps of ords.war contents when running configdir command</li>
+			<li>BUG:29197220 - Dispatch PL/SQL Gateway calls via ORDS_PUBLIC_USER to minimize number of pools required</li>
+			<li>BUG:29191117 - Uptake Javassist 3.24.1-GA</li>
+			<li>BUG:29191097 - Uptake Eclipse Jetty 9.4.14</li>
+			<li>BUG:29191084 - Uptake Google Guava 27.0.1</li>
+			<li>BUG:29190987 - Uptake Jackson 2.9.8</li>
+			<li>BUG:29190934 - Uptake Apache Commons File Upload 1.4</li>
+			<li>BUG:29190890 - Uptake Apache PDFBox 2.0.13</li>
+			<li>BUG:29128000 - Connect to database using Wallet Zip archive as found Oracle Database Cloud ATP/ADW environments</li>
+			<li>BUG:28570782 - Improve integration with McAfee ICAP Server</li>
+            <li>BUG:27639517 - Provide mechanism to enable Plugin servlets function as an administrative database user</li>
+		</ul>
+		<h3>New Features in 19.1.0</h3>
+		<ul>
+			<li>ENH:29303772 - Enable ORDS to install in a PDB without requiring SYS user or SYSDBA role</li>
+		</ul>		
+		<h2>Changes in 18.4.0</h2>
+		The following changes and enhancements have been made since 18.3.0:
+		<h3>Issues Fixed in 18.4.0</h3>
+
+		<a id="18.4.0-changes"></a>
+		<ul>
+			<li>BUG:29053557 - Determine administrative database users based on granted database role</li>
+			<li>BUG:29049176 - Show 403 Forbidden status when REST Service fails due to database user lacking privilege to access objects referenced in the SQL statement</li>
+			<li>BUG:28520359 - Show Oracle Logo in UI</li>
+		    <li>BUG:29011184 - Suppress unsupported and undocumented <code>X-DB-Content-Length</code> response header produced by OWA</li>
+			<li>BUG:28877175 - Fix resolution of <code>url-mapping.xml</code> based mapping that uses <code>--workspace-id</code></li>
+            <li>BUG:28997641 - Gracefully cope with database password rotation</li>
+			<li>BUG:28964132 - ORDS installer won't accept passwords more than 28 bytes long</li>
+			<li>BUG:28808094 - Uptake Apache Commons Logging 1.2</li>
+			<li>BUG:28787846 - Uptake Apache PDFBox 2.0.12</li>
+			<li>BUG:28719460 - Uptake Javassist 3.23.1-GA</li>
+			<li>BUG:28719440 - Uptake Jetty 9.4.12</li>
+			<li>BUG:28719424 - Uptake Jackson 2.9.7</li>
+			<li>BUG:28561298 - Address problem with upgrading from ORDS 17.4.1</li>
+			<li>BUG:28518849 - Fix problem with OAuth token lifetimes not being calculated correctly</li>
+            <li>BUG:28466581 - Fix 500 Error status on open-api-catalog resources</li>
+            <li>BUG:27992525 - Fix access to metadata-catalog when no authorization required</li>
+            <li>BUG:27933884 - Fix parsing of Resource Handler content to recognize parameters more precisely</li>
+            <li>BUG:27808357 - Enhance performance of AutoREST tables/views</li>
+		</ul>
+		<h3>New Features in 18.4.0</h3>
+		<ul>
+			<li>ENH:23666046 - Make <code>security.requestValidationFunction</code> setting configurable per database pool</li>
+			<li>ENH:28028432 - Echo p_comments value into generated Swagger documentation</li>
+		</ul>
+
+		<h2>Changes in 18.3.0</h2>
+		The following changes and enhancements have been made since 18.2.0:
+		<h3>Issues Fixed in 18.3.0</h3>
+
+		<a id="18.3.0-changes"></a>
+		<ul>
+			<li>BUG:28700464 - Prevent caching of connections created via database authentication, leading to issues when database password changed</li>
+			<li>BUG:28672484 - Fix problem that prevented PL/SQL Gateway file uploads working in non APEX environments</li>
+			<li>BUG:28567990 - Fix regression that prevented dispatching of APEX based REST Services in CDB</li>
+			<li>BUG:28518849 - Fix regression that caused OAuth token lifetimes to 1000 times what they should be</li>
+			<li>BUG:23640562 - Provide means for authorized administrative database users to define ORDS REST Services in any schema</li>
+			<li>BUG:28581365 - Fix 500 error problem that may occur when using database authentication</li>
+			<li>BUG:28543131 - Enable a PL/SQL function to be invoked prior to dispatching ORDS RESTful Services</li>
+			<li>BUG:26712420 - Fix issue with ORDS installer failing when using RAC</li>
+            <li>BUG:28529274 - Fix problem during install when database auditing is enabled</li>
+            <li>BUG:28528895 - Fix problem during install with closed PDBs using PDB lockdown</li>
+            <li>BUG:28502103 - Deprecate legacy X-APEX-STATUS-CODE and similar headers, replace with X-ORDS-STATUS-CODE etc.</li>
+            <li>BUG:28500353 - Uptake Jetty 9.4.11</li>
+            <li>BUG:28500351 - Uptake Guava 26.0</li>
+            <li>BUG:28500334 - Uptake Apache FOP 2.3</li>
+            <li>BUG:28499759 - Fix problem with missing third party library: Javassist</li>
+			<li>BUG:28485975 - Uptake Oracle 18.3.0.0 JDBC drivers</li>			
+			<li>BUG:28481972 - Fix problem with the casing of user chosen password</li>			
+			<li>BUG:28460781 - Fix problem with URL encoding of pound character in hyperlink values</li>			
+			<li>BUG:28445474 - Fix problem causing a query that uses manual pagination still being wrapped in an auto pagination clause</li>			
+			<li>BUG:28432949 - Enable self links in ORDS REST Services to have a trailing slash</li>			
+			<li>BUG:28407676 - Fix problem with ORDS schema alias 'hiding' APEX schema alias and preventing APEX based REST services from dispatching, causing plugin and application images to 404</li>
+			<li>BUG:28394698 - Fix problem with performance of logging in certain cases when debug.printDebugToScreen enabled</li>			
+			<li>BUG:28394684 - Fix problem with masking of data in log files causing performance issues</li>			
+			<li>BUG:28352768 - Implement HEAD support for APEX based REST Services</li>
+		</ul>
+		<h3>New Features in 18.3.0</h3>
+		<ul>
+			<li>ENH:28603664 - PL/SQL Gateway support for custom authentication</li>
+			<li>ENH:28603635 - Provide means to disable caching of PL/SQL Gateway procedure validation</li>
+			<li>ENH:28304149 - Improve PL/SQL Resource Handler usability</li>
+		</ul>
+
+		<h2>Changes in 18.2.0</h2>
+		The following changes and enhancements have been made since 18.1.1:
+		<h3>Issues Fixed in 18.2.0</h3>
+
+		<a id="18.2.0-changes"></a>
+		<ul>
+			<li>BUG:28225327 - Update the examples in <code>examples/soda/getting-started/</code> for the SODA feature</li>
+			<li>BUG:28207743 - Fix resource leaks during AutoREST procedure invocation</li>
+			<li>BUG:28094268 - Fix problem with serving of refreshed APEX static resources on Firefox &amp; Edge</li>
+			<li>BUG:28071398 - Address issue in ICAP functionality causing interoperability problem with McAfee virus scanner</li>
+			<li>BUG:28207044 - Remove the previously deprecated <code>ords-scripts</code> command</code></li>
+			<li>BUG:27916398 - Fix regression preventing dispatching of ORDS REST Services in APEX workspace where schema name not same as workspace name</li>
+			<li>BUG:28000102 - Gracefully shutdown Standalone Mode, by waiting a short period to complete in flight requests when shutting down</li>
+			<li>BUG:27992366 - Fix regression causing unintended Basic Authentication browser prompt during OAuth Token approval flow</li>
+			<li>BUG:28000102 - Gracefully shutdown Standalone Mode, by waiting a short period to complete in flight requests when shutting down</li>
+			<li>BUG:27994227 - Uptake version 9.4.10 of third party Jetty Library</li>
+			<li>BUG:27994221 - Uptake version 2.9.5 of third party Jackson library</li>
+			<li>BUG:27916570 - Handle migration of APEX based REST services with null URI prefix</li>
+			<li>BUG:24941023 - Change what kind of URL paths are rejected by ORDS, only path traversal attacks are rejected now</li>
+			<li>BUG:28043792 - Support RAW data type for REST Enabled SQL</li>
+			<li>BUG:28086691 - Fix regression that prevents PL/SQL Gateway file uploads working (with NoClassDefFoundError)</li>
+			<li>BUG:27882996 - Fix regression that prevented
+				<code>db.password</code> values prefixed with
+				<code>!</code> being encrypted</li>
+			<li>BUG:28072133 - Fix issue with OAuth client icons not displaying in approval prompt</li>
+			<li>BUG:27987547 - Fix premature removal of deprecated db.serviceNameSuffix related functionality</li>
+			<li>BUG:28130669 - Ensure ORDS_METADATA schema password matches Oracle Database 18.1 complexity rules</li>
+			<li>BUG:28130678 - Disable/Enable PDB lockdown profile during install</li>
+			<li>BUG:28130669 - ORA-28003 Error during install on Oracle Database 18.1</li>
+			<li>BUG:27832443 - Reduce size of Error Page by eliminating unused CSS</li>
+		</ul>
+		<h3>New Features in 18.2.0</h3>
+		<ul>
+			<li>ENH:28180268 - Require Migration of ORDS_METADATA schema in CDB to PDB</li>
+			<li>ENH:28149866 - Enable APEX workspace users to authenticate against ORDS based REST services</li>
+			<li>ENH:28069808 - Detect when pool is pointing at a CDB service and auto enable URL mapping to each PDB connected to CDB</li>
+		</ul>
+		<h2>Changes in 18.1.1</h2>
+		The following changes and enhancements have been made since 18.1.0:
+		<h3>Issues Fixed in 18.1.1</h3>
+
+		<a id="18.1.1-changes"></a>
+		<ul>
+			<li>BUG:27165873 - Fix issue with ORDS.DELETE_CLIENT failing</li>
+			<li>BUG:27540028 - Migrate CDB install to PDB install</li>
+			<li>BUG:27505895 - Multithreading issue when dispatching resource modules under load</li>
+			<li>BUG:27456593 - Issue with first part token session not expiring correctly</li>
+			<li>BUG:27391040 - APEX OAuth Clients are forced to Token Response type when edited and saved</li>
+			<li>BUG:26881221 - Fix regression preventing authentication of Tomcat based users</li>
+		</ul>
+		<h3>New Features in 18.1.1</h3>
+		<ul>
+			<li>ENH:27741103 - Support HTTP Basic dynamic authentication for PL/SQL Gateway calls</li>
+		</ul>
+
+
+		<h2>Changes in 18.1.0</h2>
+		The following changes and enhancements have been made since 17.4.1:
+		<h3>Issues Fixed in 18.1.0</h3>
+
+		<a id="18.1.0-changes"></a>
+		<ul>
+			<li>BUG:27375052 - Eliminate need for --add-modules javax.xml.bind when running ORDS on JDK 9</li>
+			<li>BUG:27374997 - Fix regression causing ORDS not to function on WebLogic 12C out of the box</li>
+		</ul>
+		<h3>New Features in 18.1.0</h3>
+		<p>None</p>
+
+		<a id="known-issues"></a>
+		<h2>Known Issues</h2>
+		<h3>SODA</h3>
+		<ul>
+			<li>None</li>
+		</ul>
+		<h3>JDK Support</h3>
+		<ul>
+			<li>ORDS will run and is supported on JDK 9 however the only supported way to use ORDS on JDK 9 is by running it in standalone
+				mode, as currently neither Oracle
+				<a href="https://blogs.oracle.com/weblogicserver/weblogic-server-and-java-se-9">WebLogic</a>
+				or
+				<a href="https://javaee.github.io/glassfish/doc/5.0/release-notes.pdf">Glassfish</a>
+				are certified for use with JDK 9, and ORDS has not yet been certified on Apache Tomcat on JDK 9.
+			</li>
+			<li>
+				<p>From ORDS 18.1.0 and later you can launch ORDS on JDK 9 by just typing:</p>
+				<pre>java -jar ords.war &lt;command-name&gt;</pre>
+				<ul>
+					<li>The requirement in 17.4 to use the
+						<code>--add-modules
+							java.xml.bind</code> command line argument has been eliminated
+					</li>
+				</ul>
+			</li>
+		</ul>
+		<h3>JDBC Array values</h3>
+		<p>
+			ORDS passes array values to the Oracle Database in a number of cases, for example arrays are used to pass the request headers and form fields during PL/SQL Gateway calls.
+			Oracle JDBC Driver 18.3 and later supports an improved mechanism for passing array values, however this feature is only supported on Oracle Database 12c and later. Thus
+			ORDS uses existing deprecated and less efficient APIs for passing array values when connecting to 11G databases, and the improved mechanism when connected to 12c and later. Customers
+			experiencing problems with passing large array sets (for example OutOfMemory exceptions) are encouraged to upgrade from 11G to a newer database version to mitigate
+			these issues.
+		</p>
+		<h3>Autogenerated REST Endpoints</h3>
+		<ul>
+			<li>AutoRest resources support the OAuth 2.0 Client Credentials flow only.</li>
+		</ul>
+		<h3>RESTful Services</h3>
+		<ul>
+			<li>Application Express workspaces do not support first party authentication, and therefore do not support the
+				<code>/sign-in/</code> interactive sign in form. Accessing
+				<code>/sign-in/</code> in APEX workspaces will produce a 404 status.
+			</li>
+		</ul>
+		<h3>Support For mod_plsql logmeoff </h3>
+		<ul>
+			<li>The mod_plsql logmeoff mechanism is not supported reliably by modern browsers and it is not provided by ORDS. 
+			    The only way to end a HTTP Basic Authentication session is to close the Browser. </li>
+		</ul>
+		<h3>Starting Standalone Mode when connected to CDB</h3>
+		<p>The typical manner to start ORDS in standalone mode, once ORDS has been configured is:</p>
+		<pre>java -jar ords.war</pre>
+		<p>
+			ORDS will detect that it is fully configured and proceed to launching standalone mode. Since 18.2
+			the <code>ORDS_METADATA</code> schema is not installed in the CDB, which means that when the default pool
+			is connected to a CDB there is no way for ORDS to automatically verify the version of the ORDS schema installed in the database,
+			thus ORDS prompts for the <code>SYS AS SYSDBA</code> password so it can connect to each PDB and verify the ORDS version
+			installed in each PDB. This means that when connected to a CDB the above command is not sufficient to start standalone
+			mode automatically. To work around this issue, use the following command to start ORDS (only after the ORDS instance has been configured) in standalone mode automatically:			
+		</p>
+		<pre>java -jar ords.war standalone</pre>
+		<h3>Support for apex.docTable</h3>
+		<ul>
+			<li>apex.docTable (now depreciated) and owa.docTable should not be used for APEX 4.x and above as APEX provides its own document table.</li>
+		</ul>
+	</div>
+</body>
+
+</html>

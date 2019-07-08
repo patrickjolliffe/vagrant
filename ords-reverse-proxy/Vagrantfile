@@ -42,7 +42,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # change memory size
   config.vm.provider "virtualbox" do |v|
     v.memory = MEM_SIZE
-    v.name = NAME
+    v.name   = NAME
     v.cpus   = CPUS
   end
 

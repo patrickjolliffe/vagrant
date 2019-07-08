@@ -24,7 +24,7 @@
 . /home/oracle/.bashrc 
 
 export ORACLE_PWD=`cat /vagrant/apex-pwd`
-rm -f /vagrant/apex-pwd
+#rm -f /vagrant/apex-pwd
 
 # Install ORDS
 mkdir $ORACLE_BASE/ords
@@ -47,7 +47,7 @@ cat > $ORDS_HOME/params/ords_params.properties << EOF
 db.hostname=localhost
 db.port=1521
 # CUSTOMIZE db.servicename
-db.servicename=${ORACLE_PDB}
+db.servicename=XEPDB1
 db.username=APEX_PUBLIC_USER
 db.password=${ORACLE_PWD}
 migrate.apex.rest=false
