@@ -38,11 +38,13 @@ echo LC_ALL=en_US.utf-8 >> /etc/environment
 
 echo 'INSTALLER: Locale set'
 
+#Disable SELinux
+sudo sed -i 's/SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config
+sudo setenforce 0
+
 yum install -y oracle-database-preinstall-18c openssl
-yum install -y tomcat tomcat-native
 yum install -y httpd
-yum install -y nginx
 yum install -y hitch
-yum install -y mlocate htop vim python36
+yum install -y mlocate htop vim python36 lsof
 
 echo 'INSTALLER: Oracle preinstall and openssl complete'
