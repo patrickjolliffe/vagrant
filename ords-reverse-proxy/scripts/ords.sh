@@ -46,3 +46,27 @@ cd ${ORDS_HOME}
 java -jar ords.war configdir ${ORDS_CONF}
 java -jar ords.war
 cp ords.war /usr/share/tomcat/webapps
+
+GRANT inherit privileges ON USER SYSTEM TO ORDS_METADATA;
+
+BEGIN
+  ORDS.ENABLE_SCHEMA(
+      p_enabled             => TRUE,
+      p_schema              => 'HR',
+      p_url_mapping_type    => 'BASE_PATH',
+      p_url_mapping_pattern => 'hr',
+      p_auto_rest_auth      => FALSE);
+END;
+/
+BEGIN
+ ORDS.ENABLE_OBJECT(
+   p_enabled => TRUE,
+   p_schema => 'HR',
+   p_object => 'EMPLOYEES',
+   p_object_type => 'TABLE',
+   p_object_alias => 'employees',
+   p_auto_rest_auth => FALSE);
+END;
+/
+AUDIT SESSION;
+alter user hr account unlock
