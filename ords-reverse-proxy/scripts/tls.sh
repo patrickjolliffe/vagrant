@@ -15,6 +15,11 @@ openssl pkcs12 -export \
                -out ords-reverseproxy.p12 \
                -passout pass:Password123
 
+openssl x509 -inform DER \
+             -outform PEM \
+             -in ords-reverseproxy.crt \
+             -out ords-reverseproxy.pem               
+
 keytool -importkeystore -srckeystore ords-reverseproxy.p12 \
         -srcstoretype PKCS12 \
         -destkeystore ords-reverseproxy.jks \
@@ -22,3 +27,6 @@ keytool -importkeystore -srckeystore ords-reverseproxy.p12 \
         -storepass Password123 \
         -keypass Password123 \
         -srcstorepass Password123
+
+echo ca_certificate=/usr/local/ssl/ords-reverseproxy.crt >> /etc/wgetrc
+

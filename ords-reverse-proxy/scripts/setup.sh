@@ -6,5 +6,11 @@ echo LC_ALL=en_US.utf-8 >> /etc/environment
 wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 yum install -y epel-release-latest-7.noarch.rpm
 
-yum install -y htop mlocate siege
+yum install -y htop jq mlocate siege strace
 
+
+
+wget --ca-certificate=/usr/local/ssl/ords-reverseproxy.crt
+     https://ords-reverseproxy.localdomain:1211/ords/hr/employees/100 -qO- | jq
+
+/etc/pki/tls/openssl.cnf
