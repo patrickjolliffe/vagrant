@@ -21,4 +21,3 @@ echo "export ORACLE_BASE=/opt/oracle" >> /home/oracle/.bashrc && \
 echo "export ORACLE_HOME=/opt/oracle/product/18c/dbhomeXE" >> /home/oracle/.bashrc && \
 echo "export ORACLE_SID=XE" >> /home/oracle/.bashrc && \
 echo "export PATH=\$PATH:\$ORACLE_HOME/bin" >> /home/oracle/.bashrc
-

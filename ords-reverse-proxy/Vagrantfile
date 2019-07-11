@@ -25,10 +25,14 @@ Vagrant.configure("2") do |config|
     vb.name   = var_vm_name    
     vb.customize ['storageattach', :id, '--storagectl', 'SATA Controller', '--port', '0', '--nonrotational', var_non_rotational]
   end
-
+  #General setup
   config.vm.provision "shell", path: "scripts/setup.sh"
+  #Oracle Database
   config.vm.provision "shell", path: "scripts/database.sh"
+  #SSL
   config.vm.provision "shell", path: "scripts/tls.sh"
+  #Tomcat
   config.vm.provision "shell", path: "scripts/tomcat.sh"
+  #ORDS
   config.vm.provision "shell", path: "scripts/ords.sh"
 end

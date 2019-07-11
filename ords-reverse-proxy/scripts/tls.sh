@@ -18,7 +18,7 @@ openssl pkcs12 -export \
 openssl x509 -inform DER \
              -outform PEM \
              -in ords-reverseproxy.crt \
-             -out ords-reverseproxy.pem               
+             -out ords-reverseproxy.pem
 
 keytool -importkeystore -srckeystore ords-reverseproxy.p12 \
         -srcstoretype PKCS12 \
