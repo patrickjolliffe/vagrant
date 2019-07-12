@@ -43,5 +43,5 @@ Vagrant.configure("2") do |config|
   #Nginx
   config.vm.provision "shell", path: "scripts/nginx.sh"
   #Varnish
-  config.vm.provision "shell", path: "scripts/ords.sh"
+  config.vm.provision "shell", path: "scripts/varnish.sh"
 end
