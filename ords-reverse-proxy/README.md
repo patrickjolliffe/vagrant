@@ -1,12 +1,13 @@
-# Oracle 18c Express Edition (XE) on Oracle Linux 7
+# Oracle 18c XE with ORDS and Reverse Proxies
 
-A simple Vagrant build for Oracle 18c Express Edition (XE) on Oracle Linux 7 using the XE RPM installation.
+A Vagrant that demonstrates how to configure caching reverse proxies in front of Oracle ORDS
 
 ## Required Software
 
 * [Vagrant](https://www.vagrantup.com/downloads.html)
 * [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 * [Oracle Database 18c XE](https://www.oracle.com/database/technologies/appdev/xe.html)
+* Oracle ORDS
 
 Place the Oracle Express Edition (XE) RPM software in the "software" directory before calling the `vagrant up` command.
 
@@ -22,6 +23,7 @@ $ tree
 |   +--- setup.sh
 +--- software
 |   +--- oracle-database-xe-18c-1.0-1.x86_64.rpm
+|   +--- ords-19.1.0.092.1545.zip
 |   +--- put_software_here.txt
 +--- Vagrantfile
 $
