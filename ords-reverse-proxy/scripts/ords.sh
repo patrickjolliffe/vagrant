@@ -19,7 +19,7 @@ db.hostname=localhost
 db.port=1521
 db.servicename=XEPDB1
 db.username=APEX_PUBLIC_USER
-db.password=Password123!
+db.password=Password123
 migrate.apex.rest=false
 plsql.gateway.add=true
 rest.services.apex.add=true
@@ -27,13 +27,13 @@ rest.services.ords.add=true
 schema.tablespace.default=USERS
 schema.tablespace.temp=TEMP
 standalone.mode=false
-user.apex.listener.password=Password123!
-user.apex.restpublic.password=Password123!
-user.public.password=Password123!
+user.apex.listener.password=Password123
+user.apex.restpublic.password=Password123
+user.public.password=Password123
 user.tablespace.default=USERS
 user.tablespace.temp=TEMP
 sys.user=SYS
-sys.password=Password123!
+sys.password=Password123
 EOF
 
 chown -R oracle:oinstall $ORDS_HOME
@@ -54,7 +54,7 @@ su -l oracle -c "sqlplus / as sysdba <<EOF
         exit;
 EOF"
 
-su -l oracle -c "sqlplus system/Password123\!@localhost:1521/XEPDB1 <<EOF
+su -l oracle -c "sqlplus system/Password123@localhost:1521/XEPDB1 <<EOF
         BEGIN
             ORDS.ENABLE_SCHEMA(
                 p_enabled             => TRUE,

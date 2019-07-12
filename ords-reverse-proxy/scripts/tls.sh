@@ -1,4 +1,6 @@
 #!/bin/bash
+#Need java for keytool
+yum install -y java
 mkdir /usr/local/ssl
 cd /usr/local/ssl
 
