@@ -33,3 +33,5 @@ cd varnish-modules
 ./bootstrap
 ./configure
 make
+
+cp /root/varnish-modules/src/.libs/libvmod_bodyaccess.so /usr/lib64/varnish/vmods/

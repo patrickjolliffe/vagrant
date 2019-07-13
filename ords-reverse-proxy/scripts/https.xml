@@ -1,6 +1,6 @@
    <!-- APR OpenSSL implementation -->
    <!-- 
-   <Connector  port="1211" protocol="org.apache.coyote.http11.Http11AprProtocol"
+   <Connector  port="1210" protocol="org.apache.coyote.http11.Http11AprProtocol"
                SSLCertificateFile="/usr/local/ssl/ords-reverseproxy.crt"
                SSLCertificateKeyFile="/usr/local/ssl/ords-reverseproxy.key"           
                maxThreads="150" SSLEnabled="true" scheme="https" secure="true"
@@ -8,7 +8,7 @@
    -->
    <!-- JSSE OpenSSL implementation -->
    <!-- 
-   <Connector  port="1212" protocol="org.apache.coyote.http11.Http11Protocol"
+   <Connector  port="1211" protocol="org.apache.coyote.http11.Http11Protocol"
                SSLCertificateFile="/usr/local/ssl/ords-reverseproxy.crt"
                SSLCertificateKeyFile="/usr/local/ssl/ords-reverseproxy.key"           
                maxThreads="150" SSLEnabled="true" scheme="https" secure="true"
@@ -16,7 +16,7 @@
    -->
    <!-- JSSE NIO implementation -->
    <!-- 
-   <Connector port="1213" protocol="org.apache.coyote.http11.Http11NioProtocol"
+   <Connector port="1212" protocol="org.apache.coyote.http11.Http11NioProtocol"
               sslImplementationName="org.apache.tomcat.util.net.jsse.JSSEImplementation"
               keystoreFile="/usr/local/ssl/ords-reverseproxy.jks"
               keystorePass="Password123"
