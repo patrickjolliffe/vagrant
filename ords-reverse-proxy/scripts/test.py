@@ -5,7 +5,6 @@ import os
 import argparse
 from subprocess import DEVNULL, STDOUT, check_call
 
-
 protocol_http = 'http'
 protocol_https = 'https'
 all_protocols = [protocol_http,protocol_https]
@@ -20,7 +19,7 @@ method_get = 'g'
 method_post = 'p'
 all_methods = [method_get,method_post]
 
-def setup(protocol, proxy, method, cache, port):
+def setup(protocol, proxy, method, cache, port, auto):
     print("Protocol:%s Proxy: %s Method: %s" % (protocol, proxy, method))
     if (cache):
         print('Caching')
@@ -55,7 +54,12 @@ def setup(protocol, proxy, method, cache, port):
     with open('/etc/siege/urls.txt','r+') as f:
         f.seek(0)
         for emp in range(100, 200):
-            base_url = '%s://oel7-ords.localdomain:%d/ords/oradb18/hr/demo/get_employee' % (protocol,port)
+            base_url = '%s://ords-reverseproxy.localdomain:%d/ords/hr/' % (protocol,port)
+            if auto:
+                base_url = base_url + "employees"
+            else:   
+                base_url = base_url + "demo/get_employee"
+
             #base_url = '%s://oel7-ords.localdomain:%d/ords/oradb18/hr/employees' % (protocol,port)
             if method == method_post:
                 full_url = '%s POST employee_id=%d' % (base_url,emp)
@@ -84,6 +88,7 @@ protocol_parser = parser.add_mutually_exclusive_group(required=False)
 protocol_parser.add_argument('--http',  action='store_true')
 protocol_parser.add_argument('--https', action='store_true')
 parser.add_argument('--port', type=int)
+parser.add_argument('--auto',  action='store_true')
 
 args = parser.parse_args()
 print(args)
@@ -117,5 +122,5 @@ for cache in caches:
     for method in methods:
         for protocol in protocols:
             for proxy in proxies:
-                setup(protocol,proxy,method,cache,args.port)
+                setup(protocol,proxy,method,cache,args.port, args.auto)
                 run_siege()

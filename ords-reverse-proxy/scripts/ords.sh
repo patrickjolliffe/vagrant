@@ -46,6 +46,13 @@ cd ${ORDS_HOME}
 java -jar ords.war configdir ${ORDS_CONF}
 java -jar ords.war
 cp ords.war /usr/share/tomcat/webapps
+sed '/unix/ i "Add a new line"' file.txt
+
+
+sed -i '/<\/properties>/ i <entry key="jdbc.InitialLimit">40</entry>\n<entry key="jdbc.MaxLimit">40</entry>' /opt/oracle/ords/config/ords/defaults.xml
+rm -f /opt/oracle/ords/config/ords/conf/apex_al.xml
+rm -f /opt/oracle/ords/config/ords/conf/apex_rt.xml
+rm -f /opt/oracle/ords/config/ords/conf/apex.xml
 
 su -l oracle -c "sqlplus / as sysdba <<EOF
         alter session set container=XEPDB1;
