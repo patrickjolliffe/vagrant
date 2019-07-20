@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION get_employee (
+CREATE OR REPLACE FUNCTION hr.get_employee (
     employee_id IN NUMBER
 ) RETURN SYS_REFCURSOR AS
     employee_record SYS_REFCURSOR;
@@ -18,6 +18,7 @@ BEGIN
                          p_base_path        => '/demo/');                  
 END;
 /
+
 BEGIN       
    ords.define_template( p_module_name       => 'demo',
                          p_pattern           => 'get_employee/:employee_id');
@@ -40,6 +41,7 @@ BEGIN
    COMMIT;
 END;
 /
+
 BEGIN
    ords.define_template( p_module_name       => 'demo',
                          p_pattern           => 'get_employee');
@@ -62,3 +64,4 @@ BEGIN
    COMMIT;
 END;
 /
+EXIT;

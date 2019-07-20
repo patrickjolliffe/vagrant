@@ -31,10 +31,10 @@ cd varnish-modules
 ./bootstrap
 ./configure
 make
-cp /root/varnish-modules/src/.libs/libvmod_bodyaccess.so /usr/lib64/varnish/vmods/
-
+cp /home/vagrant/varnish-modules/src/.libs/libvmod_bodyaccess.so /usr/lib64/varnish/vmods/
 mv /etc/varnish/default.vcl /etc/varnish/default.backup
 cp /vagrant/scripts/default.vcl /etc/varnish/default.vcl
 sed -i 's/-a :6081/-a :4110 -a :4120 -a :4130/g' /usr/lib/systemd/system/varnish.service
+systemctl daemon-reload
 systemctl start varnish.service
 
