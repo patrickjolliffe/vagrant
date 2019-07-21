@@ -32,9 +32,90 @@ cd varnish-modules
 ./configure
 make
 cp /home/vagrant/varnish-modules/src/.libs/libvmod_bodyaccess.so /usr/lib64/varnish/vmods/
-mv /etc/varnish/default.vcl /etc/varnish/default.backup
-cp /vagrant/scripts/default.vcl /etc/varnish/default.vcl
-sed -i 's/-a :6081/-a :4110 -a :4120 -a :4130/g' /usr/lib/systemd/system/varnish.service
+
+cat > /etc/varnish/default.vcl << EOF
+vcl 4.0;
+import bodyaccess;
+import std;
+
+backend default {
+    .host = "127.0.0.1";
+    .port = "1110";
+}
+
+sub vcl_recv {
+    unset req.http.X-Body-Len;
+   // No Cache
+   if (std.port(server.ip) == 4110) {
+      return (pass);
+   }
+   // Cache GETs
+   elsif (std.port(server.ip) == 4120) {
+      return (hash);
+   }
+   // Cache POSTs
+   elsif (std.port(server.ip) == 4130) {
+      if (req.method == "POST") {
+         std.cache_req_body(500KB);
+         set req.http.X-Body-Len = bodyaccess.len_req_body();
+         if (req.http.X-Body-Len == "-1") {
+            return(synth(400, "The request body size exceeds the limit"));
+         }
+         return (hash);
+      }
+   }
+}
+
+sub vcl_hash {
+   if (req.http.X-Body-Len) {
+      bodyaccess.hash_req_body();
+   }
+   else {
+      hash_data("");
+   }
+}
+
+sub vcl_backend_fetch {
+   if (bereq.http.X-Body-Len) {
+      set bereq.method = "POST";
+   }
+}
+
+sub vcl_deliver {
+}
+EOF
+
+cat > /usr/lib/systemd/system/varnish.service << EOF
+[Unit]
+Description=Varnish Cache, a high-performance HTTP accelerator
+After=network-online.target
+
+[Service]
+Type=forking
+KillMode=process
+
+# Maximum number of open files (for ulimit -n)
+LimitNOFILE=131072
+
+# Locked shared memory - should suffice to lock the shared memory log
+# (varnishd -l argument)
+# Default log size is 80MB vsl + 1M vsm + header -> 82MB
+# unit is bytes
+LimitMEMLOCK=85983232
+
+# Enable this to avoid "fork failed" on reload.
+TasksMax=infinity
+
+# Maximum size of the corefile.
+LimitCORE=infinity
+
+ExecStart=/usr/sbin/varnishd -a :4110 -a :4120 -a :4130 -f /etc/varnish/default.vcl -s malloc,256m
+ExecReload=/usr/sbin/varnishreload
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
 systemctl daemon-reload
 systemctl start varnish.service
 
