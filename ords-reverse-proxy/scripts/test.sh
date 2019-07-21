@@ -1,4 +1,5 @@
 #!/usr/bin/bash
+DURATION=${1:-1M}
 
 build_urls() {
    CACHE_MODE=$1
@@ -63,7 +64,7 @@ build_urls() {
 
 run_siege() { 
    echo -n $1:
-   siege -c 255 -t 5S 2>&1 | grep rate | cut -f 2
+   siege -c 255 -t $DURATION 2>&1 | grep rate | cut -f 2
 }
 
 tomcat_warmup() {
@@ -77,7 +78,7 @@ tomcat_warmup() {
    echo Note also some variation in transaction rate even after it has warmed-up
    for i in {1..5}
    do
-      siege -c 255 -t 1M 2>&1 | grep rate
+      siege -c 255 -t $DURATION 2>&1 | grep rate
    done
 }
 
@@ -85,8 +86,8 @@ tomcat_warmup() {
    echo Demonstate difference between 1 and 255 siege connections...
    echo Compare the values for "Transaction rate" and "Response Time" 
    build_urls cache_off GET http proxy_none rest_manual
-   siege -c   1 -t 1M >/dev/null
-   siege -c 255 -t 1M >/dev/null
+   siege -c   1 -t $DURATION >/dev/null
+   siege -c 255 -t $DURATION >/dev/null
 }
 
 manual_vs_autorest() {
@@ -108,6 +109,7 @@ openssl_vs_jre () {
 }
 
 run_all_combos() {
+   DURATION=${1}
    echo Run complete test-suite for all combos of:
    echo "Not Caching & Caching"
    echo "Methods: GET & POST"
@@ -144,10 +146,11 @@ run_all_combos() {
       done
    done
 }
+#Allow duration as command line argment, default to one minute
 killall -9 siege
-#tomcat_warmup
-#1_vs_255_connections
-#manual_vs_autorest
-#openssl_vs_jre
+tomcat_warmup
+1_vs_255_connections
+manual_vs_autorest
+openssl_vs_jre
 run_all_combos
 
