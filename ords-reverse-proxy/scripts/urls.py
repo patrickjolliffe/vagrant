@@ -15,8 +15,8 @@ proxy_httpd = 'httpd'
 proxy_none = 'none'
 all_proxies = [proxy_none,proxy_httpd,proxy_nginx,proxy_varnish]
 
-method_get = 'g'
-method_post = 'p'
+method_get = 'get'
+method_post = 'post'
 all_methods = [method_get,method_post]
 
 def setup(protocol, proxy, method, cache, port, auto, verbose):

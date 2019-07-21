@@ -1,7 +1,69 @@
 #!/usr/bin/bash
-run_siege() {
-   echo "Sieging $1..."
-   siege -c 255 -t 1M 2>&1 | grep rate
+
+build_urls() {
+   CACHE_MODE=$1
+   METHOD=$2
+   PROTOCOL=$3
+   PROXY=$4 
+   REST=$5
+   PORT=$6
+   
+   if [ -z "$PORT" ]; 
+   then
+      case $PROXY in
+      proxy_none  )
+        PORT=1000 ;;
+      proxy_httpd )
+        PORT=2000 ;;
+      proxy_nginx )
+        PORT=3000 ;;
+      proxy_varnish )
+        PORT=4000 ;;
+      esac
+
+      case $PROTOCOL in
+      http  )
+         PORT=$[PORT+100] ;;
+      https )
+         PORT=$[PORT+200] ;;
+      esac
+
+      if [ "$CACHE_MODE" = cache_off ];
+      then
+         PORT=$[PORT+10] 
+      elif [ "$CACHE_MODE" = cache_on ] && [ "$METHOD" = 'GET' ];
+      then
+        PORT=$[PORT+20] 
+      elif [ "$CACHE_MODE" = cache_on ] && [ "$METHOD" = 'POST' ];  
+      then
+         PORT=$[PORT+30]
+      fi
+   fi
+   > /etc/siege/urls.txt
+
+   URL=$PROTOCOL'://ords-reverseproxy.localdomain:'$PORT'/ords/hr/'   
+   if [ "$REST" = rest_manual ];
+   then
+      URL=$URL"demo/get_employee"
+   else
+      URL=$URL"employees"
+   fi
+
+   for EMP in {100..200}
+   do
+      if [ "$METHOD" = 'POST' ];
+      then
+         LINE=$URL' POST employee_id='$EMP
+      else
+         LINE=$URL'/'$EMP
+      fi
+      echo $LINE >> /etc/siege/urls.txt          
+   done
+}
+
+run_siege() { 
+   echo -n $1:
+   siege -c 255 -t 5S 2>&1 | grep rate | cut -f 2
 }
 
 tomcat_warmup() {
@@ -9,10 +71,10 @@ tomcat_warmup() {
    echo Restarting Tomcat...
    sudo systemctl restart tomcat.service
    echo Sleep 10 seconds to allow Tomcat to startup
-   sleep 10   
-   python3 /vagrant/scripts/urls.py --http --get -r none
-   echo Run 5*1 minute sieges, hopefully showing transaction rate increase
-   echo Note also some variation in transaction rate even after it has 'warmed-up'
+   sleep 10
+   build_urls cache_off GET http proxy_none rest_manual
+   echo Run 5*1 minute sieges, should show transaction rate increase as Tomcat warms up
+   echo Note also some variation in transaction rate even after it has warmed-up
    for i in {1..5}
    do
       siege -c 255 -t 1M 2>&1 | grep rate
@@ -22,60 +84,61 @@ tomcat_warmup() {
 1_vs_255_connections() {
    echo Demonstate difference between 1 and 255 siege connections...
    echo Compare the values for "Transaction rate" and "Response Time" 
-   python3 /vagrant/scripts/urls.py --http --get -r none
-   echo "Sieging with 1 connection..."
-   siege -c 1 -t 1M >/dev/null
-   echo "Sieging with 255 connections..."
+   build_urls cache_off GET http proxy_none rest_manual
+   siege -c   1 -t 1M >/dev/null
    siege -c 255 -t 1M >/dev/null
 }
 
 manual_vs_autorest() {
    echo Demonstrate difference between auto and manually generated REST services
-   echo Should see significantly higher value for manually generated
-   python3 /vagrant/scripts/urls.py --http --get -r none --auto
+   echo Manually generated should exhibit higher transaction rate
+   build_urls cache_off GET http proxy_none rest_auto
    run_siege "AutoREST"
-   python3 /vagrant/scripts/urls.py --http --get -r none
+   build_urls cache_off GET http proxy_none rest_manual
    run_siege "manually created service"
 }
-
 
 openssl_vs_jre () {
    echo "Demonstrate benefits to running J2EE JRE vs OpenSSL APR (tomcat-native)"
    echo Hopefully OpenSSL APR should perform better
-   python3 /vagrant/scripts/urls.py --https --port 1211 --get -r none
+   build_urls cache_off GET https proxy_none rest_manual 1211
    run_siege "J2EE JRE"   
-   python3 /vagrant/scripts/urls.py --https --port 1210 --get -r none
+   build_urls cache_off GET https proxy_none rest_manual
    run_siege "OpenSSL APR"   
 }
 
 run_all_combos() {
    echo Run complete test-suite for all combos of:
-   echo "Caching & Not Caching"
+   echo "Not Caching & Caching"
    echo "Methods: GET & POST"
    echo "Protocols: HTTP & HTTPS"
    echo "Reverse Proxies: none (direct to Tomcat), httpd (Apache HTTP Server), nginx and varnish(&Hitch)"
    echo Skipping impossible combinations 
-   for cache_mode in no_cache cache
+   for CACHE_MODE in cache_off cache_on
+#   for CACHE_MODE in cache_on
    do 
-      for method in get post
+      for METHOD in GET POST
+#      for METHOD in POST
       do 
-         for protocol in http https
+         for PROTOCOL in http https
+#         for PROTOCOL in http
          do 
-            for proxy in none httpd nginx varnish
+            for PROXY in proxy_none proxy_httpd proxy_nginx proxy_varnish
+#            for PROXY in proxy_nginx
             do
                #Skip invalid combos
-               if [ "$cache_mode" = 'cache' ]
+               if [ "$CACHE_MODE" = "cache_on" ]
                then
-                  if [ "$proxy" = 'none' ]
+                  if [ "$PROXY" = "proxy_none" ]
                   then
                      continue          
-                  elif [ "$method" = 'post' ] && [ "$proxy" = 'httpd' ]
+                  elif [ "$METHOD" = 'POST' ] && [ "$PROXY" = 'proxy_httpd' ]
                   then
                      continue 
                   fi
                fi
-               python3 /vagrant/scripts/urls.py --$cache_mode --$method --$protocol -r $proxy -v
-               run_siege "$cache_mode,method=$method,protocol=$protocol,proxy=$proxy"
+               build_urls $CACHE_MODE $METHOD $PROTOCOL $PROXY rest_manual
+               run_siege "$CACHE_MODE,$METHOD,$PROTOCOL,$PROXY"
             done
          done
       done

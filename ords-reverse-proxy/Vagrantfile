@@ -73,6 +73,8 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", path: "scripts/nginx.sh"
   #Varnish
   config.vm.provision "shell", path: "scripts/varnish.sh"
+  #Hitch
+  config.vm.provision "shell", path: "scripts/hitch.sh"
   #Siege
   config.vm.provision "shell", path: "scripts/siege.sh"
 end
