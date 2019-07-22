@@ -115,7 +115,7 @@ ExecReload=/usr/sbin/varnishreload
 [Install]
 WantedBy=multi-user.target
 EOF
-
 systemctl daemon-reload
+systemctl enable varnish.service
 systemctl start varnish.service
 

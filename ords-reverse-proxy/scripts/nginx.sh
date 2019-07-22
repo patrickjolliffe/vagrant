@@ -78,5 +78,5 @@ http {
    }
 }
 EOF
-
+systemctl enable nginx.service
 systemctl start nginx.service

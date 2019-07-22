@@ -46,9 +46,8 @@ cd ${ORDS_HOME}
 java -jar ords.war configdir ${ORDS_CONF}
 java -jar ords.war
 cp ords.war /usr/share/tomcat/webapps
-
-#Skip this change, it doesn't seem to improve performance
-#sed -i '/<\/properties>/ i <entry key="jdbc.InitialLimit">40</entry>\n<entry key="jdbc.MaxLimit">40</entry>' /opt/oracle/ords/config/ords/defaults.xml
+#Increase connection pool size
+sed -i '/<\/properties>/ i <entry key="jdbc.InitialLimit">50</entry>\n<entry key="jdbc.MinLimit">50</entry>\n<entry key="jdbc.MaxLimit">50</entry>' /opt/oracle/ords/config/ords/defaults.xml
 rm -f /opt/oracle/ords/config/ords/conf/apex_al.xml
 rm -f /opt/oracle/ords/config/ords/conf/apex_rt.xml
 rm -f /opt/oracle/ords/config/ords/conf/apex.xml
