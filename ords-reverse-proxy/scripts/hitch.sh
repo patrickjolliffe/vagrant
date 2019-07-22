@@ -8,9 +8,9 @@ After=syslog.target network.target
 
 [Service]
 PIDFile=/run/hitch@%i.pid
-ExecStart=/usr/sbin/hitch --config=/etc/hitch/hitch.conf \\
-                          -p /run/hitch@%i.pid           \\
-                          -f [*]:42%i0                   \\
+ExecStart=/usr/sbin/hitch --config=/etc/hitch/hitch.conf      \\
+                          -p /run/hitch@%i.pid                \\
+                          -f [*]:42%i0                        \\
                           -b [127.0.0.1]:41%i0
 
 LimitCORE=infinity
@@ -31,7 +31,14 @@ pem-file = "/usr/local/ssl/ords-reverseproxy.pem"
 EOF
 
 systemctl daemon-reload
-systemctl start hitch@1.service
-systemctl start hitch@2.service
-systemctl start hitch@3.service
 
+systemctl enable hitch\@1.service
+systemctl enable hitch\@2.service
+systemctl enable hitch\@3.service
+#Seem some issues starting hitch services
+#Try sleep..
+systemctl start hitch\@1.service
+sleep 1
+systemctl start hitch\@2.service
+sleep 1
+systemctl start hitch\@3.service
