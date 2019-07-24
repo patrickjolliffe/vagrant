@@ -7,7 +7,7 @@ A Vagrant that demonstrates how to configure caching reverse proxies in front of
 * [Vagrant](https://www.vagrantup.com/downloads.html)
 * [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 * [Oracle Database 18c XE](https://www.oracle.com/database/technologies/appdev/xe.html)
-* (https://www.oracle.com/technetwork/developer-tools/rest-data-services/downloads/index.html) Oracle REST Data Services (ORDS)
+* [Oracle REST Data Services (ORDS)] (https://www.oracle.com/technetwork/developer-tools/rest-data-services/downloads/index.html) 
 
 Place the Oracle Express Edition (XE) RPM and ORDS software in the "software" directory before calling the `vagrant up` command.
 
