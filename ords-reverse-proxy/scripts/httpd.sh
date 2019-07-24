@@ -1,7 +1,5 @@
 #/bin/bash
 yum install -y httpd mod_ssl
-mv /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.original
-cp /vagrant/scripts/httpd.conf /etc/httpd/conf/httpd.conf
 cat > /etc/httpd/conf/httpd.conf << EOF
 Include conf.modules.d/*.conf
 

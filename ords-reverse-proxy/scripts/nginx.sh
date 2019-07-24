@@ -13,7 +13,7 @@ http {
          proxy_pass http://localhost:1110/;
       }
    }
-   add_header X-Proxy-Cache $upstream_cache_status;
+   add_header X-Proxy-Cache \$upstream_cache_status;
    proxy_cache_path /var/cache/nginx
                     keys_zone=ORDS-CACHE:128m;
 
@@ -79,5 +79,6 @@ http {
    }
 }
 EOF
+
 systemctl enable nginx.service
 systemctl start nginx.service
