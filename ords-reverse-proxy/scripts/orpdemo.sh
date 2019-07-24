@@ -72,12 +72,12 @@ tomcat_warmup() {
    echo Demonstate Tomcat 'warm-up'...
    echo Restarting Tomcat...
    sudo systemctl restart tomcat.service
-   echo Sleep 10 seconds to allow Tomcat to start
-   sleep 10
+   echo Sleep 15 seconds to allow Tomcat to start
+   sleep 15
    build_urls cache_off GET http proxy_none rest_manual
    echo Run a few sieges to show transaction rate increase as Tomcat warms up
    echo Note also some variation in transaction rate even after it has warmed-up
-   for i in {1..5}
+   for i in {1..10}
    do
       siege -c 255 -t $DURATION 2>&1 | grep rate
    done
@@ -153,12 +153,9 @@ echo If that happens just re-run the test
 killall -9 siege 2> /dev/null
 #Some issues starting hitch automcatically during vagrant up
 #Quick hack just start services now as necessary
-sudo systemctl start hitch@1.service
-sudo systemctl start hitch@2.service
-sudo systemctl start hitch@3.service
 tomcat_warmup
-1_vs_255_connections
-manual_vs_autorest
-openssl_vs_jre
-run_all_combos
+#1_vs_255_connections
+#manual_vs_autorest
+#openssl_vs_jre
+#run_all_combos
 
