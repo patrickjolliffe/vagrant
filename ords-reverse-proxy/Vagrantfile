@@ -7,7 +7,7 @@ var_vm_name        = 'ora18c-ords191-reverseproxy'
 #Reducing this to 4096 results in swapping 
 #In addition results in less efficient filesystem caching 
 #Resulting in worse nginx and apache caching
-var_mem_size       = 5120
+var_mem_size       = 6144
 var_cpus           = 2
 var_non_rotational = 'on' # SSD
 

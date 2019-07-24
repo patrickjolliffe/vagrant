@@ -12,6 +12,10 @@ Group apache
     TypesConfig /etc/mime.types
 </IfModule>
 
+#Add Cache status to HTTP Header
+#Useful for debugging
+CacheDetailHeader on
+
 #HTTP Reverse Proxy
 Listen 2110
 <VirtualHost *:2110>

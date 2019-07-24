@@ -47,7 +47,7 @@ java -jar ords.war configdir ${ORDS_CONF}
 java -jar ords.war
 cp ords.war /usr/share/tomcat/webapps
 #Increase connection pool size
-sed -i '/<\/properties>/ i <entry key="jdbc.InitialLimit">50</entry>\n<entry key="jdbc.MinLimit">50</entry>\n<entry key="jdbc.MaxLimit">50</entry>' /opt/oracle/ords/config/ords/defaults.xml
+sed -i '/<\/properties>/ i <entry key="jdbc.InitialLimit">4</entry>\n<entry key="jdbc.MinLimit">4</entry>\n<entry key="jdbc.MaxLimit">4</entry>' /opt/oracle/ords/config/ords/defaults.xml
 rm -f /opt/oracle/ords/config/ords/conf/apex_al.xml
 rm -f /opt/oracle/ords/config/ords/conf/apex_rt.xml
 rm -f /opt/oracle/ords/config/ords/conf/apex.xml

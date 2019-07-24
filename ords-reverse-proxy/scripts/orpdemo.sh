@@ -62,9 +62,7 @@ build_urls() {
    done
 }
 
-run_siege() { 
-   echo -n "$(date) $1:"
-   
+siege_tps() { 
    siege -c 255 -t $DURATION 2>&1 | grep rate | cut -f 2
 }
 
@@ -79,7 +77,8 @@ tomcat_warmup() {
    echo Note also some variation in transaction rate even after it has warmed-up
    for i in {1..10}
    do
-      siege -c 255 -t $DURATION 2>&1 | grep rate
+      #Hard code this to 1 minute
+      siege -c 255 -t 1M 2>&1 | grep rate
    done
    echo Subsequent tests assume Tomcat is already warmed-up
 }
@@ -96,18 +95,22 @@ manual_vs_autorest() {
    echo Demonstrate difference between auto and manually generated REST services
    echo Manually generated should exhibit higher transaction rate
    build_urls cache_off GET http proxy_none rest_auto
-   run_siege "Auto REST"
+   echo -n "$(date) Auto REST:"
+   siege_tps
    build_urls cache_off GET http proxy_none rest_manual
-   run_siege "Manual REST"
+   echo -n "$(date) Manual REST:"
+   siege_tps
 }
 
 openssl_vs_jre () {
    echo "Demonstrate benefits to running J2EE JRE vs OpenSSL APR (tomcat-native)"
    echo OpenSSL APR should perform better
    build_urls cache_off GET https proxy_none rest_manual 1211
-   run_siege "J2EE JRE"   
+   echo -n "$(date) J2EE JRE:"
+   siege_tps
    build_urls cache_off GET https proxy_none rest_manual
-   run_siege "OpenSSL APR"   
+   echo -n "$(date) OpenSSL APR"
+   siege_tps 
 }
 
 run_all_combos() {
@@ -126,6 +129,7 @@ run_all_combos() {
          for PROTOCOL in http https
 #         for PROTOCOL in http
          do 
+            echo "$CACHE_MODE,$METHOD,$PROTOCOL:"
             for PROXY in proxy_none proxy_httpd proxy_nginx proxy_varnish
 #            for PROXY in proxy_varnish
             do
@@ -140,8 +144,9 @@ run_all_combos() {
                      continue 
                   fi
                fi
-               build_urls $CACHE_MODE $METHOD $PROTOCOL $PROXY rest_manual
-               run_siege "$CACHE_MODE,$METHOD,$PROTOCOL,$PROXY"
+               echo -n "$(date) $PROXY:"
+               build_urls $CACHE_MODE $METHOD $PROTOCOL $PROXY rest_manual 
+               siege_tps
             done
          done
       done
@@ -151,11 +156,9 @@ echo Note occasionally siege may hang at end of test
 echo If that happens just re-run the test
 #Allow duration as command line argment, default to one minute
 killall -9 siege 2> /dev/null
-#Some issues starting hitch automcatically during vagrant up
-#Quick hack just start services now as necessary
 tomcat_warmup
-#1_vs_255_connections
-#manual_vs_autorest
-#openssl_vs_jre
-#run_all_combos
+1_vs_255_connections
+manual_vs_autorest
+openssl_vs_jre
+run_all_combos
 

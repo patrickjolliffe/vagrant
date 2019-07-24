@@ -5,6 +5,7 @@ yum install -y tomcat tomcat-native
 cat > /tmp/sed_herefile << EOF
    <!-- Tomcat HTTP -->
    <Connector port="1110" protocol="HTTP/1.1"
+              maxThreads="4" 
               connectionTimeout="20000"
               redirectPort="8443" />
 
@@ -12,7 +13,7 @@ cat > /tmp/sed_herefile << EOF
    <Connector  port="1210" protocol="HTTP/1.1"
                SSLCertificateFile="/usr/local/ssl/ords-reverseproxy.crt"
                SSLCertificateKeyFile="/usr/local/ssl/ords-reverseproxy.key"
-               maxThreads="150" SSLEnabled="true" scheme="https" secure="true"
+               maxThreads="4" SSLEnabled="true" scheme="https" secure="true"
                clientAuth="false" sslProtocol="TLS" />
 
    <!-- JSSE Java Runtime  -->
@@ -20,7 +21,7 @@ cat > /tmp/sed_herefile << EOF
               sslImplementationName="org.apache.tomcat.util.net.jsse.JSSEImplementation"
               keystoreFile="/usr/local/ssl/ords-reverseproxy.jks"
               keystorePass="Password123"
-              maxThreads="150" SSLEnabled="true" scheme="https" secure="true"
+              maxThreads="4" SSLEnabled="true" scheme="https" secure="true"
               clientAuth="false" sslProtocol="TLS" />
 EOF
 sed -i '/<Service name="Catalina">/r /tmp/sed_herefile' /etc/tomcat/server.xml
