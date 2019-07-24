@@ -38,7 +38,7 @@ systemctl enable hitch\@3.service
 #Seem some issues starting hitch services
 #Try sleep..
 systemctl start hitch\@1.service
-sleep 1
+sleep 2
 systemctl start hitch\@2.service
-sleep 1
+sleep 2
 systemctl start hitch\@3.service
