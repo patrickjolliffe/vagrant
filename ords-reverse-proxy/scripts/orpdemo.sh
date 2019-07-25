@@ -124,14 +124,14 @@ run_all_combos() {
 #   for CACHE_MODE in cache_on
    do 
       for METHOD in GET POST
-#      for METHOD in POST
+#      for METHOD in GET
       do 
          for PROTOCOL in http https
-#         for PROTOCOL in http
+#         for PROTOCOL in https
          do 
             echo "$CACHE_MODE,$METHOD,$PROTOCOL:"
             for PROXY in proxy_none proxy_httpd proxy_nginx proxy_varnish
-#            for PROXY in proxy_varnish
+#            for PROXY in proxy_nginx
             do
                #Skip invalid combos
                if [ "$CACHE_MODE" = "cache_on" ]
