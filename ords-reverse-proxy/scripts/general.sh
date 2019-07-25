@@ -24,4 +24,5 @@ echo "Please type orp-all to run the entire test suite"
 echo "An optional duration parameter can be provided, using same format as siege"
 echo "For example 10S (seconds) or 2M (minute)."
 echo "If this is not provided the default is 1 Minute"
+echo "To just compare direct vs reverse proxy use orp-combos"
 EOF
