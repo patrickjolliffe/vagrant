@@ -156,9 +156,9 @@ echo Note occasionally siege may hang at end of test
 echo If that happens just re-run the test
 #Allow duration as command line argment, default to one minute
 killall -9 siege 2> /dev/null
-#tomcat_warmup
-#1_vs_255_connections
-#manual_vs_autorest
-#openssl_vs_jre
+tomcat_warmup
+1_vs_255_connections
+manual_vs_autorest
+openssl_vs_jre
 run_all_combos
 
