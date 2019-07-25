@@ -1,0 +1,10 @@
+#!/usr/bin/bash
+. orp-lib
+
+DURATION=${1:-1M}
+
+orp-warmup $DURATION
+orp-cons $DURATION
+orp-ssl $DURATION
+orp-manauto $DURATION
+orp-combos $DURATION

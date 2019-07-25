@@ -1,0 +1,20 @@
+#!/usr/bin/bash
+. orp-lib
+
+DURATION=${1:-1M}
+
+kill_siege
+
+echo Demonstate Tomcat 'warm-up'...
+echo Restarting Tomcat...
+sudo systemctl restart tomcat.service
+echo Sleep 15 seconds to allow Tomcat to start
+sleep 15
+build_urls cache_off GET http proxy_none rest_manual
+echo Run a few sieges to show transaction rate increase as Tomcat warms up
+echo Note also some variation in transaction rate even after it has warmed-up
+for i in {1..10}
+do
+    #Hard code this to 1 minute
+    siege -c 255 -t $DURATION 2>&1 | grep rate
+done

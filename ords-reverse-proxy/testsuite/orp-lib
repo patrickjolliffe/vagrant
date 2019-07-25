@@ -1,0 +1,72 @@
+#!/usr/bin/bash
+build_urls() {
+   CACHE_MODE=$1
+   METHOD=$2
+   PROTOCOL=$3
+   PROXY=$4 
+   REST=$5
+   PORT=$6
+   
+   if [ -z "$PORT" ]; 
+   then
+      case $PROXY in
+      proxy_none  )
+        PORT=1000 ;;
+      proxy_httpd )
+        PORT=2000 ;;
+      proxy_nginx )
+        PORT=3000 ;;
+      proxy_varnish )
+        PORT=4000 ;;
+      esac
+
+      case $PROTOCOL in
+      http  )
+         PORT=$[PORT+100] ;;
+      https )
+         PORT=$[PORT+200] ;;
+      esac
+
+      if [ "$CACHE_MODE" = cache_off ];
+      then
+         PORT=$[PORT+10] 
+      elif [ "$CACHE_MODE" = cache_on ] && [ "$METHOD" = 'GET' ];
+      then
+        PORT=$[PORT+20] 
+      elif [ "$CACHE_MODE" = cache_on ] && [ "$METHOD" = 'POST' ];  
+      then
+         PORT=$[PORT+30]
+      fi
+   fi
+   > /etc/siege/urls.txt
+
+   URL=$PROTOCOL'://ords-reverseproxy.localdomain:'$PORT'/ords/hr/'   
+   if [ "$REST" = rest_manual ];
+   then
+      URL=$URL"demo/get_employee"
+   else
+      URL=$URL"employees"
+   fi
+
+   for EMP in {100..200}
+   do
+      if [ "$METHOD" = 'POST' ];
+      then
+         LINE=$URL' POST employee_id='$EMP
+      else
+         LINE=$URL'/'$EMP
+      fi
+      echo $LINE >> /etc/siege/urls.txt          
+   done
+}
+
+siege_tps() { 
+   #Default to One Minute
+   DURATION=${1:-1M}
+   siege -c 255 -t $DURATION 2>&1 | grep rate | cut -f 2
+}
+
+kill_siege() { 
+    killall -9 siege 2> /dev/null
+}
+

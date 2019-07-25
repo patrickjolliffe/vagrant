@@ -1,0 +1,14 @@
+#!/usr/bin/bash
+. orp-lib
+DURATION=${1:-1M}
+
+echo "Demonstrate benefits to running J2EE JRE vs OpenSSL APR (tomcat-native)"
+echo OpenSSL APR should perform better
+build_urls cache_off GET https proxy_none rest_manual 1211
+echo -n "$(date) J2EE JRE:"
+siege_tps $DURATION
+build_urls cache_off GET https proxy_none rest_manual
+echo -n "$(date) OpenSSL APR"
+siege_tps $DURATION
+
+

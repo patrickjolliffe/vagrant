@@ -1,0 +1,12 @@
+#!/usr/bin/bash
+DURATION=${1:-1M}
+. orp-lib
+
+echo Demonstrate difference between auto and manually generated REST services
+echo Manually generated should exhibit higher transaction rate
+build_urls cache_off GET http proxy_none rest_auto
+echo -n "$(date) Auto REST:"
+siege_tps $DURATION
+build_urls cache_off GET http proxy_none rest_manual
+echo -n "$(date) Manual REST:"
+siege_tps $DURATION
