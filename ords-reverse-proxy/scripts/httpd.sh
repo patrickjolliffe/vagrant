@@ -36,8 +36,8 @@ LoadModule ssl_module modules/mod_ssl.so
 Listen 2210 https
 <VirtualHost *:2210>
     SSLEngine on
-    SSLCertificateFile    /usr/local/ssl/ords-reverseproxy.crt
-    SSLCertificateKeyFile /usr/local/ssl/ords-reverseproxy.key
+    SSLCertificateFile    /usr/local/ssl/orp.crt
+    SSLCertificateKeyFile /usr/local/ssl/orp.key
     ProxyPass             / http://localhost:1110/
     ProxyPassReverse      / http://localhost:1110/
 </VirtualHost>
@@ -46,8 +46,8 @@ Listen 2210 https
 Listen 2220 https
 <VirtualHost *:2220>
     SSLEngine on
-    SSLCertificateFile    /usr/local/ssl/ords-reverseproxy.crt
-    SSLCertificateKeyFile /usr/local/ssl/ords-reverseproxy.key
+    SSLCertificateFile    /usr/local/ssl/orp.crt
+    SSLCertificateKeyFile /usr/local/ssl/orp.key
     ProxyPass             / http://localhost:1110/
     ProxyPassReverse      / http://localhost:1110/
     CacheEnable           disk  /

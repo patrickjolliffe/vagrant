@@ -27,7 +27,7 @@ cat > /etc/hitch/hitch.conf << EOF
 daemon   = on
 user     = hitch
 group    = hitch
-pem-file = "/usr/local/ssl/ords-reverseproxy.pem"
+pem-file = "/usr/local/ssl/orp.pem"
 EOF
 
 systemctl daemon-reload

@@ -1,6 +1,6 @@
 #!/bin/bash
-hostnamectl set-hostname ords-reverseproxy.localdomain
-echo 127.0.0.1   ords-reverseproxy.localdomain >> /etc/hosts
+hostnamectl set-hostname orp.localdomain
+echo 127.0.0.1   orp.localdomain >> /etc/hosts
 
 # fix locale warning
 yum reinstall -y glibc-common

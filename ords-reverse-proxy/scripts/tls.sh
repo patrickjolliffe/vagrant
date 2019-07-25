@@ -8,28 +8,28 @@ openssl req  -nodes \
              -new  \
              -x509 \
              -days 1024 \
-             -subj "/CN=ords-reverseproxy.localdomain" \
-             -keyout ords-reverseproxy.key \
-             -out ords-reverseproxy.crt
+             -subj "/CN=orp.localdomain" \
+             -keyout orp.key \
+             -out orp.crt
              
 openssl pkcs12 -export \
-               -in ords-reverseproxy.crt  \
-               -inkey ords-reverseproxy.key \
-               -out ords-reverseproxy.p12 \
+               -in orp.crt  \
+               -inkey orp.key \
+               -out orp.p12 \
                -passout pass:Password123
 
 keytool -importkeystore \
-        -srckeystore ords-reverseproxy.p12 \
+        -srckeystore orp.p12 \
         -srcstoretype PKCS12 \
-        -destkeystore ords-reverseproxy.jks \
+        -destkeystore orp.jks \
         -deststoretype JKS \
         -storepass Password123 \
         -keypass Password123 \
         -srcstorepass Password123
 
-cat /usr/local/ssl/ords-reverseproxy.key > /usr/local/ssl/ords-reverseproxy.pem
-cat /usr/local/ssl/ords-reverseproxy.crt >> /usr/local/ssl/ords-reverseproxy.pem
+cat /usr/local/ssl/orp.key > /usr/local/ssl/orp.pem
+cat /usr/local/ssl/orp.crt >> /usr/local/ssl/orp.pem
 
 #Configure cert for wget
-echo ca_certificate=/usr/local/ssl/ords-reverseproxy.crt >> /etc/wgetrc
+echo ca_certificate=/usr/local/ssl/orp.crt >> /etc/wgetrc
 

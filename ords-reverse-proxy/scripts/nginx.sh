@@ -42,9 +42,9 @@ http {
    # Reverse Proxy + TLS
    server {
       listen              3210 ssl;
-      server_name         ords-reverseproxy.localdomain;
-      ssl_certificate     /usr/local/ssl/ords-reverseproxy.crt;
-      ssl_certificate_key /usr/local/ssl/ords-reverseproxy.key;
+      server_name         orp.localdomain;
+      ssl_certificate     /usr/local/ssl/orp.crt;
+      ssl_certificate_key /usr/local/ssl/orp.key;
       location / {
          proxy_pass http://localhost:1110/;
       }
@@ -53,9 +53,9 @@ http {
    # Reverse Proxy + TLS + Cache GETs
    server {
       listen              3220 ssl;
-      server_name         ords-reverseproxy.localdomain;
-      ssl_certificate     /usr/local/ssl/ords-reverseproxy.crt;
-      ssl_certificate_key /usr/local/ssl/ords-reverseproxy.key;
+      server_name         orp.localdomain;
+      ssl_certificate     /usr/local/ssl/orp.crt;
+      ssl_certificate_key /usr/local/ssl/orp.key;
       location / {
          proxy_pass        http://localhost:1110/;
          proxy_cache       ORDS-CACHE;
@@ -66,9 +66,9 @@ http {
    # Reverse Proxy + TLS + Cache POSTs
    server {
       listen              3230 ssl;
-      server_name         ords-reverseproxy.localdomain;
-      ssl_certificate     /usr/local/ssl/ords-reverseproxy.crt;
-      ssl_certificate_key /usr/local/ssl/ords-reverseproxy.key;
+      server_name         orp.localdomain;
+      ssl_certificate     /usr/local/ssl/orp.crt;
+      ssl_certificate_key /usr/local/ssl/orp.key;
       location / {
          proxy_pass           http://localhost:1110/;
          proxy_cache          ORDS-CACHE;

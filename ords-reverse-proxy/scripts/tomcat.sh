@@ -11,15 +11,15 @@ cat > /tmp/sed_herefile << EOF
 
    <!-- APR (Native) OpenSSL -->
    <Connector  port="1210" protocol="HTTP/1.1"
-               SSLCertificateFile="/usr/local/ssl/ords-reverseproxy.crt"
-               SSLCertificateKeyFile="/usr/local/ssl/ords-reverseproxy.key"
+               SSLCertificateFile="/usr/local/ssl/orp.crt"
+               SSLCertificateKeyFile="/usr/local/ssl/orp.key"
                maxThreads="4" SSLEnabled="true" scheme="https" secure="true"
                clientAuth="false" sslProtocol="TLS" />
 
    <!-- JSSE Java Runtime  -->
    <Connector port="1211" protocol="org.apache.coyote.http11.Http11NioProtocol"
               sslImplementationName="org.apache.tomcat.util.net.jsse.JSSEImplementation"
-              keystoreFile="/usr/local/ssl/ords-reverseproxy.jks"
+              keystoreFile="/usr/local/ssl/orp.jks"
               keystorePass="Password123"
               maxThreads="4" SSLEnabled="true" scheme="https" secure="true"
               clientAuth="false" sslProtocol="TLS" />
