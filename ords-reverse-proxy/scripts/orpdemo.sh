@@ -120,18 +120,18 @@ run_all_combos() {
    echo "HTTP & HTTPS"
    echo "No Proxy (direct to Tomcat), httpd (Apache HTTP Server), nginx and varnish(&Hitch)"
    echo Skipping impossible combinations 
-#   for CACHE_MODE in cache_off cache_on
-   for CACHE_MODE in cache_on
+   for CACHE_MODE in cache_off cache_on
+#   for CACHE_MODE in cache_on
    do 
-#      for METHOD in GET POST
-      for METHOD in GET
+      for METHOD in GET POST
+#      for METHOD in GET
       do 
-#         for PROTOCOL in http https
-         for PROTOCOL in https
+         for PROTOCOL in http https
+#         for PROTOCOL in https
          do 
             echo "$CACHE_MODE,$METHOD,$PROTOCOL:"
-#            for PROXY in proxy_none proxy_httpd proxy_nginx proxy_varnish
-            for PROXY in proxy_nginx
+            for PROXY in proxy_none proxy_httpd proxy_nginx proxy_varnish
+#            for PROXY in proxy_nginx
             do
                #Skip invalid combos
                if [ "$CACHE_MODE" = "cache_on" ]
