@@ -120,18 +120,18 @@ run_all_combos() {
    echo "HTTP & HTTPS"
    echo "No Proxy (direct to Tomcat), httpd (Apache HTTP Server), nginx and varnish(&Hitch)"
    echo Skipping impossible combinations 
-   for CACHE_MODE in cache_off cache_on
-#   for CACHE_MODE in cache_on
+#   for CACHE_MODE in cache_off cache_on
+   for CACHE_MODE in cache_on
    do 
-      for METHOD in GET POST
-#      for METHOD in POST
+#      for METHOD in GET POST
+      for METHOD in GET
       do 
-         for PROTOCOL in http https
-#         for PROTOCOL in http
+#         for PROTOCOL in http https
+         for PROTOCOL in https
          do 
             echo "$CACHE_MODE,$METHOD,$PROTOCOL:"
-            for PROXY in proxy_none proxy_httpd proxy_nginx proxy_varnish
-#            for PROXY in proxy_varnish
+#            for PROXY in proxy_none proxy_httpd proxy_nginx proxy_varnish
+            for PROXY in proxy_nginx
             do
                #Skip invalid combos
                if [ "$CACHE_MODE" = "cache_on" ]
@@ -156,9 +156,9 @@ echo Note occasionally siege may hang at end of test
 echo If that happens just re-run the test
 #Allow duration as command line argment, default to one minute
 killall -9 siege 2> /dev/null
-tomcat_warmup
-1_vs_255_connections
-manual_vs_autorest
-openssl_vs_jre
+#tomcat_warmup
+#1_vs_255_connections
+#manual_vs_autorest
+#openssl_vs_jre
 run_all_combos
 

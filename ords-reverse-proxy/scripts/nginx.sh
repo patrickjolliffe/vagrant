@@ -74,7 +74,7 @@ http {
          proxy_cache          ORDS-CACHE;
          proxy_cache_valid    60m;
          proxy_cache_methods  POST;
-         proxy_cache_key      "$uri|$request_body";
+         proxy_cache_key      "\$uri|\$request_body";
       }
    }
 }
