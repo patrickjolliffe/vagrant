@@ -17,15 +17,15 @@ CacheDetailHeader on
 #HTTP Reverse Proxy
 Listen 2110
 <VirtualHost *:2110>
-    ProxyPass        / http://localhost:1110/
-    ProxyPassReverse / http://localhost:1110/
+    ProxyPass        / http://orp:1110/
+    ProxyPassReverse / http://orp:1110/
 </VirtualHost>
 
 # HTTP Reverse Proxy + Cache GETs
 Listen 2120
 <VirtualHost *:2120>
-    ProxyPass        / http://localhost:1110/
-    ProxyPassReverse / http://localhost:1110/
+    ProxyPass        / http://orp:1110/
+    ProxyPassReverse / http://orp:1110/
     CacheEnable      disk /
     CacheRoot        /var/cache/httpd/
 </VirtualHost>
@@ -38,8 +38,8 @@ Listen 2210 https
     SSLEngine on
     SSLCertificateFile    /usr/local/ssl/orp.crt
     SSLCertificateKeyFile /usr/local/ssl/orp.key
-    ProxyPass             / http://localhost:1110/
-    ProxyPassReverse      / http://localhost:1110/
+    ProxyPass             / http://orp:1110/
+    ProxyPassReverse      / http://orp:1110/
 </VirtualHost>
 
 # TLS Reverse Proxy + Cache GETs
@@ -48,8 +48,8 @@ Listen 2220 https
     SSLEngine on
     SSLCertificateFile    /usr/local/ssl/orp.crt
     SSLCertificateKeyFile /usr/local/ssl/orp.key
-    ProxyPass             / http://localhost:1110/
-    ProxyPassReverse      / http://localhost:1110/
+    ProxyPass             / http://orp:1110/
+    ProxyPassReverse      / http://orp:1110/
     CacheEnable           disk  /
     CacheRoot             /var/cache/httpd/
 </VirtualHost>
