@@ -4,12 +4,12 @@ yum install -y java
 mkdir /usr/local/ssl
 cd /usr/local/ssl
 
-openssl req  -nodes                      \
-             -new                        \
-             -x509                       \
-             -days 1024                  \
-             -subj "/CN=orp.localdomain" \
-             -keyout orp.key             \
+openssl req  -nodes          \
+             -new            \
+             -x509           \
+             -days 1024      \
+             -subj "/CN=orp" \
+             -keyout orp.key \
              -out orp.crt
              
 openssl pkcs12 -export                   \
