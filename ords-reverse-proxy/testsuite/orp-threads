@@ -1,0 +1,17 @@
+#!/usr/bin/bash
+echo "Remember to reset threadcount to 4 after these tests"
+. orp-lib
+DURATION=${1:-1M}
+
+for THREADCOUNT in 1 2 4 8 16 32 64 128
+do
+   set_threads $THREADCOUNT
+   for LOOPY in {1..3}
+   do
+      siege_tps
+   done     
+done
+
+set_threads 4
+
+

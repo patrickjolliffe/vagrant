@@ -1,0 +1,33 @@
+#!/usr/bin/bash
+. orp-lib
+DURATION=${1:-1M}
+
+if false; then
+echo "Demonstrate benefits to running J2EE JRE vs OpenSSL APR (tomcat-native)"
+echo OpenSSL APR should perform better
+
+echo -n "$(date) APR/native connector:"
+build_urls cache_off GET http proxy_none rest_manual 1110
+siege_tps $DURATION
+
+echo -n "$(date) Non-blocking Java connector:"
+build_urls cache_off GET http proxy_none rest_manual 1111
+siege_tps $DURATION
+
+echo -n "$(date) Blocking Java connector:"
+build_urls cache_off GET http proxy_none rest_manual 1112
+siege_tps $DURATION
+fi
+
+echo -n "$(date) APR/native connector (OpenSSL):"
+build_urls cache_off GET https proxy_none rest_manual 1210
+siege_tps $DURATION
+
+echo -n "$(date) Non-blocking Java connector (JSSE):"
+build_urls cache_off GET https proxy_none rest_manual 1211
+siege_tps $DURATION
+
+echo -n "$(date) Blocking Java connector (JSSE):"
+build_urls cache_off GET https proxy_none rest_manual 1212
+siege_tps $DURATION
+

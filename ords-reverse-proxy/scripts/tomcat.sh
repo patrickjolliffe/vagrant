@@ -3,27 +3,55 @@
 yum install -y tomcat tomcat-native
 
 cat > /tmp/sed_herefile << EOF
-   <!-- Tomcat HTTP -->
-   <Connector port="1110" protocol="HTTP/1.1"
-              maxThreads="4" 
-              connectionTimeout="20000"
-              redirectPort="8443" />
+   <!-- HTTP -->
 
-   <!-- APR (Native) OpenSSL -->
-   <Connector  port="1210" protocol="HTTP/1.1"
+   <!-- APR/native connector -->   
+   <Connector port="1110"    protocol="org.apache.coyote.http11.Http11AprProtocol"
+              maxThreads="4"
+              connectionTimeout="20000" />
+
+   <!-- Non-blocking Java connector -->
+   <Connector port="1111" protocol="org.apache.coyote.http11.Http11NioProtocol"
+              maxThreads="4"
+              connectionTimeout="20000" />
+
+  <!-- Blocking Java connector -->
+  <Connector port="1112" protocol="org.apache.coyote.http11.Http11Protocol"
+              maxThreads="4"
+              connectionTimeout="20000" />
+
+  <!-- Not Implemented in Tomcat 7 :(
+  <Connector port="1112" protocol="org.apache.coyote.http11.Http11Nio2Protocol"
+              maxThreads="4"
+              connectionTimeout="20000" />              
+   -->              
+
+   <!-- HTTPS -->
+   <!-- APR/Native Connector uses OpenSSL -->
+   <Connector  port="1210" protocol="org.apache.coyote.http11.Http11AprProtocol"
                SSLCertificateFile="/usr/local/ssl/orp.crt"
                SSLCertificateKeyFile="/usr/local/ssl/orp.key"
                maxThreads="4" SSLEnabled="true" scheme="https" secure="true"
                clientAuth="false" sslProtocol="TLS" />
 
-   <!-- JSSE Java Runtime  -->
+   <!-- Non-blocking Java connector uses JSSE SSL  -->
    <Connector port="1211" protocol="org.apache.coyote.http11.Http11NioProtocol"
               sslImplementationName="org.apache.tomcat.util.net.jsse.JSSEImplementation"
               keystoreFile="/usr/local/ssl/orp.jks"
               keystorePass="Password123"
               maxThreads="4" SSLEnabled="true" scheme="https" secure="true"
               clientAuth="false" sslProtocol="TLS" />
+
+
+   <!-- Non-blocking Java connector uses JSSE SSL  -->
+   <Connector port="1212" protocol="org.apache.coyote.http11.Http11Protocol"
+              sslImplementationName="org.apache.tomcat.util.net.jsse.JSSEImplementation"
+              keystoreFile="/usr/local/ssl/orp.jks"
+              keystorePass="Password123"
+              maxThreads="4" SSLEnabled="true" scheme="https" secure="true"
+              clientAuth="false" sslProtocol="TLS" />
 EOF
+
 sed -i '/<Service name="Catalina">/r /tmp/sed_herefile' /etc/tomcat/server.xml
 
 #Skip these changes, they don't seem to improve performance

@@ -13,8 +13,8 @@ sleep 15
 build_urls cache_off GET http proxy_none rest_manual
 echo Run a few sieges to show transaction rate increase as Tomcat warms up
 echo Note also some variation in transaction rate even after it has warmed-up
-for i in {1..10}
+for i in {1..60}
 do
     #Hard code this to 1 minute
-    siege -c 255 -t $DURATION 2>&1 | grep rate
+    siege -c 255 -t 20S 2>&1 | grep rate
 done
