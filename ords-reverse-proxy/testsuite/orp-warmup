@@ -1,10 +1,9 @@
 #!/usr/bin/bash
 . orp-lib
 
-#Default 30*10 seconds=5 minutes
 ITERATIONS=${1:-30}
 DURATION=${2:-10S}
-RESTART_WAIT_SECONDS=${3:-10}
+RESTART_WAIT_SECONDS=${3:-15}
 
 kill_siege
 
