@@ -35,8 +35,7 @@ cat > /tmp/sed_herefile << EOF
                clientAuth="false" sslProtocol="TLS" />
 
    <!-- Non-blocking Java connector uses JSSE SSL  -->
-   <Connector port="1211" protocol="org.apache.coyote.http11.Http11NioProtocol"
-              sslImplementationName="org.apache.tomcat.util.net.jsse.JSSEImplementation"
+   <Connector port="1211" protocol="org.apache.coyote.http11.Http11NioProtocol"              
               keystoreFile="/usr/local/ssl/orp.jks"
               keystorePass="Password123"
               maxThreads="4" SSLEnabled="true" scheme="https" secure="true"
@@ -44,8 +43,7 @@ cat > /tmp/sed_herefile << EOF
 
 
    <!-- Non-blocking Java connector uses JSSE SSL  -->
-   <Connector port="1212" protocol="org.apache.coyote.http11.Http11Protocol"
-              sslImplementationName="org.apache.tomcat.util.net.jsse.JSSEImplementation"
+   <Connector port="1212" protocol="org.apache.coyote.http11.Http11Protocol"              
               keystoreFile="/usr/local/ssl/orp.jks"
               keystorePass="Password123"
               maxThreads="4" SSLEnabled="true" scheme="https" secure="true"

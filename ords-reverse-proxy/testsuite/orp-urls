@@ -1,5 +1,0 @@
-#!/usr/bin/bash
-. orp-lib
-DURATION=${1:-1M}
-
-build_urls cache_off GET http proxy_none rest_manual

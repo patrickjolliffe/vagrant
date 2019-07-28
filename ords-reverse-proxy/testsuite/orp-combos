@@ -2,47 +2,8 @@
 . orp-lib
 DURATION=${1:-1M}
 
-run_all_combos() {
-   echo Run complete test-suite for all combos of:
-   echo "Not Caching & Caching"
-   echo "GET & POST"
-   echo "HTTP & HTTPS"
-   echo "No Proxy (direct to Tomcat), httpd (Apache HTTP Server), nginx and varnish(&Hitch)"
-   echo Skipping impossible combinations 
-   for CACHE_MODE in cache_off cache_on
-#   for CACHE_MODE in cache_on
-   do 
-      for METHOD in GET POST
-#      for METHOD in GET
-      do 
-         for PROTOCOL in http https
-#         for PROTOCOL in https
-         do 
-            echo "$CACHE_MODE,$METHOD,$PROTOCOL:"
-            for PROXY in proxy_none proxy_httpd proxy_nginx proxy_varnish
-#            for PROXY in proxy_nginx
-            do
-               #Skip invalid combos
-               if [ "$CACHE_MODE" = "cache_on" ]
-               then
-                  if [ "$PROXY" = "proxy_none" ]
-                  then
-                     continue          
-                  elif [ "$METHOD" = 'POST' ] && [ "$PROXY" = 'proxy_httpd' ]
-                  then
-                     continue 
-                  fi
-               fi
-               echo -n "$(date) $PROXY:"
-               build_urls $CACHE_MODE $METHOD $PROTOCOL $PROXY rest_manual 
-               siege_tps $DURATION
-            done
-         done
-      done
-   done
-}
-echo Note occasionally siege may hang at end of test
-echo If that happens just re-run the test
+echo orp-combos DURATION=$DURATION
+
 #Allow duration as command line argment, default to one minute
 killall -9 siege 2> /dev/null
 #Hack, sometimes Hitch service doesn't start automatically when provisioning :(
@@ -50,5 +11,45 @@ killall -9 siege 2> /dev/null
 sudo systemctl start hitch@1.service > /dev/null
 sudo systemctl start hitch@2.service > /dev/null
 sudo systemctl start hitch@3.service > /dev/null
-run_all_combos
+
+echo Run siege against for possible combinatinos of:
+echo "Not Caching & Caching"
+echo "GET & POST"
+echo "HTTP & HTTPS"
+echo "No Proxy (direct to Tomcat), httpd (Apache HTTP Server), nginx and varnish(&Hitch)"
+echo Skipping impossible combinations 
+echo Note occasionally siege may hang at end of test
+echo If that happens just kill it and re-run the test (sorry)
+
+for CACHE_MODE in cache_off cache_on
+#   for CACHE_MODE in cache_on
+do 
+   for METHOD in GET POST
+#      for METHOD in GET
+   do 
+      for PROTOCOL in http https
+#         for PROTOCOL in https
+      do 
+         echo "$CACHE_MODE,$METHOD,$PROTOCOL:"
+         for PROXY in proxy_none proxy_httpd proxy_nginx proxy_varnish
+#            for PROXY in proxy_nginx
+         do
+               #Skip invalid combos
+            if [ "$CACHE_MODE" = "cache_on" ]
+            then
+               if [ "$PROXY" = "proxy_none" ]
+               then
+                  continue          
+               elif [ "$METHOD" = 'POST' ] && [ "$PROXY" = 'proxy_httpd' ]
+               then
+                  continue 
+               fi
+            fi
+            echo -n "$(date) $PROXY:"
+            build_urls $CACHE_MODE $METHOD $PROTOCOL $PROXY rest_manual 
+            siege_tps $DURATION
+         done
+      done
+   done
+done
 

@@ -1,7 +1,12 @@
 #!/usr/bin/bash
-echo "Remember to reset threadcount to 4 after these tests"
-. orp-lib
 DURATION=${1:-1M}
+echo orp-threads DURATION=$DURATION
+echo Demonstrate effect of Tomcat Threads on performance
+echo ORS connection pool is set to value of maxthreads
+echo Remember to reset maxthreads  to 4 after these tests
+echo This will happen automatically if the test is allowed to complete
+. orp-lib
+
 
 for THREADCOUNT in 1 2 4 8 16 32 64 128
 do
@@ -13,5 +18,3 @@ do
 done
 
 set_threads 4
-
-

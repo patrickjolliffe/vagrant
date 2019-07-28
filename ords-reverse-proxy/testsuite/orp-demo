@@ -1,0 +1,9 @@
+#!/usr/bin/bash
+DURATION=${1:-1M}
+
+orp-connections $DURATION
+orp-warmup
+orp-protocols $DURATION
+orp-threads $DURATION
+orp-auto-manual $DURATION
+orp-combos $DURATION
