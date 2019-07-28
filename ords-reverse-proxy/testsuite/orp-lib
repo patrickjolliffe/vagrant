@@ -62,6 +62,7 @@ build_urls() {
 
 set_threads() { 
    THREADS=${1:-4}
+   RESTART_WAIT_SECONDS=${2:-15}
    echo Configuring $THREADS threads
    sudo sed -i 's/maxThreads="[0-9]\+"/maxThreads="'$THREADS'"/' /etc/tomcat/server.xml
 
@@ -69,7 +70,7 @@ set_threads() {
    sudo sed -i 's/<entry key="jdbc.InitialLimit">[0-9]\+<\/entry>/<entry key="jdbc.InitialLimit">'$THREADS'<\/entry>/' /opt/oracle/ords/config/ords/defaults.xml
    sudo sed -i 's/<entry key="jdbc.MinLimit">[0-9]\+<\/entry>/<entry key="jdbc.MinLimit">'$THREADS'<\/entry>/' /opt/oracle/ords/config/ords/defaults.xml
    sudo sed -i 's/<entry key="jdbc.MaxLimit">[0-9]\+<\/entry>/<entry key="jdbc.MaxLimit">'$THREADS'<\/entry>/' /opt/oracle/ords/config/ords/defaults.xml
-   restart_tomcat
+   restart_tomcat $RESTART_WAIT_SECONDS
 }
 
 
@@ -82,10 +83,12 @@ siege_tps() {
 kill_siege() { 
     killall -9 siege 2> /dev/null
 }
+
 restart_tomcat() { 
+   RESTART_WAIT_SECONDS=${1:-15}
    echo Restarting Tomcat...
    sudo systemctl restart tomcat.service   
-   echo Sleeping 15 seconds to allow Tomcat to start...
-   sleep 15
+   echo Sleeping $RESTART_WAIT_SECONDS seconds to allow Tomcat to start...
+   sleep $RESTART_WAIT_SECONDS
 }
 

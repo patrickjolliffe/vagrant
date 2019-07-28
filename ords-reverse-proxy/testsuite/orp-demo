@@ -1,9 +1,18 @@
 #!/usr/bin/bash
-DURATION=${1:-1M}
+#No problem if it's blank
+#Each test should provide it's own defaults
+. orp-lib
+
+DURATION=$1
+ITERATIONS=$2
+RESTART_WAIT_SECONDS=$3
+
+#Just in case orp-threads killed before completion
+set_threads 4 $RESTART_WAIT_SECONDS
 
 orp-connections $DURATION
-orp-warmup
+orp-warmup $ITERATIONS $DURATION $RESTART_WAIT_SECONDS
 orp-protocols $DURATION
-orp-threads $DURATION
+orp-threads $DURATION $RESTART_WAIT_SECONDS $ITERATIONS
 orp-auto-manual $DURATION
 orp-combos $DURATION

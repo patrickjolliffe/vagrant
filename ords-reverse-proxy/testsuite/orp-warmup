@@ -2,18 +2,17 @@
 . orp-lib
 
 #Default 30*10 seconds=5 minutes
-DURATION=${1:-10S}
-ITERATIONS=${2:-30}
+ITERATIONS=${1:-30}
+DURATION=${2:-10S}
+RESTART_WAIT_SECONDS=${3:-10}
 
 kill_siege
 
-echo orp-warmup ITERATIONS=$ITERATIONS DURATION $DURATION
+echo orp-warmup ITERATIONS=$ITERATIONS DURATION=$DURATION RESTART_WAIT_SECONDS=$RESTART_WAIT_SECONDS
 echo Demonstrate transaction rate increasing as Tomcat warms up
 echo Also some ongoing variation in transaction rate 
-echo Restarting Tomcat...
-sudo systemctl restart tomcat.service
-echo Sleep 15 seconds to allow Tomcat to start
-sleep 15
+restart_tomcat $RESTART_WAIT_SECONDS
+
 build_urls cache_off GET http proxy_none rest_manual
 for (( i=1; i<=$ITERATIONS; i++ ))  
 do
