@@ -18,13 +18,30 @@ $ tree
 .
 +--- README.md
 +--- scripts
-|   +--- install_os_packages.sh
-|   +--- root_setup.sh
-|   +--- setup.sh
+|   +--- siege.sh
+|   +--- database.sh
+|   +--- ords.sh
+|   +---  httpd.sh
+|   +---  nginx.sh
+|   +--- varnish.sh
+|   +--- tomcat.sh
+|   +--- tls.sh
+|   +--- general.sh
+|   +--- hitch.sh
 +--- software
 |   +--- oracle-database-xe-18c-1.0-1.x86_64.rpm
 |   +--- ords-19.1.0.092.1545.zip
 |   +--- put_software_here.txt
 +--- Vagrantfile
-$
++--- testsuite
+|   +--- orp-urls.py
+|   +--- orp-auto-manual
+|   +--- orp-connections
+|   +--- orp-protocols
+|   +--- orp-reset
+|   +--- orp-lib
+|   +--- orp-warmup
+|   +--- orp-demo
+|   +--- orp-threads
+|   +--- orp-combos
 ```
