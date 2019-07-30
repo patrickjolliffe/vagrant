@@ -11,7 +11,7 @@ PIDFile=/run/hitch@%i.pid
 ExecStart=/usr/sbin/hitch --config=/etc/hitch/hitch.conf      \\
                           -p /run/hitch@%i.pid                \\
                           -f [*]:42%i0                        \\
-                          -b [127.0.0.1]:41%i0
+                          -b [orp]:41%i0
 
 LimitCORE=infinity
 RuntimeDirectory=hitch

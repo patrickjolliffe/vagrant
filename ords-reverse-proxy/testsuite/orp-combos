@@ -22,10 +22,10 @@ echo Note occasionally siege may hang at end of test
 echo "If that happens just kill it and re-run the test (sorry)"
 
 for CACHE_MODE in cache_off cache_on
-#   for CACHE_MODE in cache_on
+#for CACHE_MODE in cache_on
 do 
    for METHOD in GET POST
-#      for METHOD in GET
+#   for METHOD in POST
    do 
       for PROTOCOL in http https
 #         for PROTOCOL in https
