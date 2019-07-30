@@ -17,31 +17,31 @@ Directory contents when software is included.
 $ tree
 .
 +--- README.md
-+--- scripts
-|   +--- siege.sh
-|   +--- database.sh
-|   +--- ords.sh
-|   +---  httpd.sh
-|   +---  nginx.sh
-|   +--- varnish.sh
-|   +--- tomcat.sh
-|   +--- tls.sh
-|   +--- general.sh
-|   +--- hitch.sh
++--- Vagrantfile
 +--- software
 |   +--- oracle-database-xe-18c-1.0-1.x86_64.rpm
 |   +--- ords-19.1.0.092.1545.zip
 |   +--- put_software_here.txt
-+--- Vagrantfile
++--- scripts
+|   +--- database.sh
+|   +--- general.sh
+|   +--- httpd.sh
+|   +--- hitch.sh
+|   +--- nginx.sh
+|   +--- ords.sh
+|   +--- siege.sh
+|   +--- tomcat.sh
+|   +--- tls.sh
+|   +--- varnish.sh
 +--- testsuite
-|   +--- orp-urls.py
 |   +--- orp-auto-manual
 |   +--- orp-connections
+|   +--- orp-combos
+|   +--- orp-demo
+|   +--- orp-lib
 |   +--- orp-protocols
 |   +--- orp-reset
-|   +--- orp-lib
-|   +--- orp-warmup
-|   +--- orp-demo
 |   +--- orp-threads
-|   +--- orp-combos
+|   +--- orp-urls.py
+|   +--- orp-warmup
 ```
