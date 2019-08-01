@@ -1,4 +1,3 @@
-#!/usr/bin/bash
 build_urls() {
    CACHE_MODE=$1
    METHOD=$2
@@ -60,17 +59,23 @@ build_urls() {
    done
 }
 
+update_pool_entry() { 
+   ENTRY=${1}
+   VALUE=${2}
+   sudo sed -i 's/<entry key="jdbc.'$ENTRY'">[0-9]\+<\/entry>/<entry key="jdbc.'$ENTRY'">'$VALUE'<\/entry>/' /opt/oracle/ords/config/ords/conf/apex_pu.xml
+}
+
 set_threads() { 
    THREADS=${1:-4}
    RESTART_WAIT_SECONDS=${2:-15}
    echo Configuring $THREADS threads
    sudo sed -i 's/maxThreads="[0-9]\+"/maxThreads="'$THREADS'"/' /etc/tomcat/server.xml
 
-   #TODO Put in function to save duplicate code
-   sudo sed -i 's/<entry key="jdbc.InitialLimit">[0-9]\+<\/entry>/<entry key="jdbc.InitialLimit">'$THREADS'<\/entry>/' /opt/oracle/ords/config/ords/defaults.xml
-   sudo sed -i 's/<entry key="jdbc.MinLimit">[0-9]\+<\/entry>/<entry key="jdbc.MinLimit">'$THREADS'<\/entry>/' /opt/oracle/ords/config/ords/defaults.xml
-   sudo sed -i 's/<entry key="jdbc.MaxLimit">[0-9]\+<\/entry>/<entry key="jdbc.MaxLimit">'$THREADS'<\/entry>/' /opt/oracle/ords/config/ords/defaults.xml
-   restart_tomcat $RESTART_WAIT_SECONDS
+   update_pool_entry InitialLimit $THREADS
+   update_pool_entry MinLimit     $THREADS
+   update_pool_entry MaxLimit     $THREADS
+   
+   restart_tomcat $RESTART_WAIT_SECONDS   
 }
 
 

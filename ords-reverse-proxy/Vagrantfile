@@ -8,7 +8,7 @@ var_vm_name        = 'ora18c-ords191-reverseproxy'
 #In addition results in less efficient filesystem caching 
 #Resulting in worse nginx and apache caching
 var_mem_size       = 6144
-var_cpus           = 2
+var_cpus           = 4
 var_non_rotational = 'on' # SSD
 
 

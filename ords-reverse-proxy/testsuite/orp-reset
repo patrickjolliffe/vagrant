@@ -1,5 +1,5 @@
 #!/usr/bin/bash
 . orp-lib
-set_threads 4
+set_threads 8
 
 
