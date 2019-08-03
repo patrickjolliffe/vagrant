@@ -69,7 +69,7 @@ Vagrant.configure("2") do |config|
   #Apache Tomcat
   config.vm.provision "shell", path: "scripts/tomcat.sh"
   #Install ORDS 19.2 (can be downgraded to 19.1)
-  config.vm.provision "shell", path: "scripts/ords.sh 19.2"
+  config.vm.provision "shell", path: "scripts/ords.sh", args: "19.2"
   #Apache HTTP Server
   config.vm.provision "shell", path: "scripts/httpd.sh"
   #Nginx
