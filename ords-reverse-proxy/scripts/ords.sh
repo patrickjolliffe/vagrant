@@ -1,15 +1,19 @@
 #!/bin/bash
 
+VERSION=$1
+
 export ORDS_HOME="/opt/oracle/ords"
 export ORDS_CONF="$ORDS_HOME/config"
 export ORDS_PARAMS=${ORDS_HOME}/params/ords_params.properties
 export ORACLE_HOME="/opt/oracle/product/18c/dbhomeXE"
 
+rm -rf $ORDS_HOME 
 mkdir $ORDS_HOME
+rm -rf $ORDS_CONF 
 mkdir $ORDS_CONF
 
 cd $ORDS_HOME
-ORDS_INSTALL=`ls /vagrant/software/ords[_-]1*.*.zip |tail -1`
+ORDS_INSTALL=`ls /vagrant/software/ords-$VERSION.*.zip |tail -1`
 unzip -o $ORDS_INSTALL
 
 su -l oracle -c "$ORACLE_HOME/jdk/bin/java -jar $ORDS_HOME/ords.war configdir $ORDS_HOME/config"
@@ -38,16 +42,18 @@ EOF
 
 chown -R oracle:oinstall $ORDS_HOME
 
-
 echo "******************************************************************************"
 echo "Configure ORDS. Safe to run on DB with existing config." `date`
 echo "******************************************************************************"
 cd ${ORDS_HOME}
 java -jar ords.war configdir ${ORDS_CONF}
+#Stop Tomcat (if running) otherwise get error about dropping connected user
+systemctl stop tomcat.service
+java -jar ords.war uninstall simple
 java -jar ords.war
 cp ords.war /usr/share/tomcat/webapps
 #Increase connection pool size
-sed -i '/<\/properties>/ i <entry key="jdbc.InitialLimit">4</entry>\n<entry key="jdbc.MinLimit">4</entry>\n<entry key="jdbc.MaxLimit">4</entry>' /opt/oracle/ords/config/ords/defaults.xml
+sed -i '/<\/properties>/ i <entry key="jdbc.InitialLimit">8</entry>\n<entry key="jdbc.MinLimit">8</entry>\n<entry key="jdbc.MaxLimit">8</entry>' /opt/oracle/ords/config/ords/conf/apex_pu.xml
 rm -f /opt/oracle/ords/config/ords/conf/apex_al.xml
 rm -f /opt/oracle/ords/config/ords/conf/apex_rt.xml
 rm -f /opt/oracle/ords/config/ords/conf/apex.xml
