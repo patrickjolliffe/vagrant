@@ -21,6 +21,7 @@ $ tree
 +--- software
 |   +--- oracle-database-xe-18c-1.0-1.x86_64.rpm
 |   +--- ords-19.1.0.092.1545.zip
+|   +--- ords-19.2.0.199.1647.zip
 |   +--- put_software_here.txt
 +--- scripts
 |   +--- database.sh
