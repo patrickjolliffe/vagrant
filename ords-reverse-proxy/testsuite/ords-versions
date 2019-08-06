@@ -1,9 +1,9 @@
 #!/usr/bin/bash
 ITERATIONS=${1:-5}
 DURATION=${2:-1M}
-echo orp-versions ITERATIONS=$ITERATIONS DURATION=$DURATION
+echo ords-versions ITERATIONS=$ITERATIONS DURATION=$DURATION
 
-. orp-lib
+. ords-lib
 
 for VERSION in 19.1 19.2
 do 

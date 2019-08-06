@@ -10,9 +10,9 @@ RESTART_WAIT_SECONDS=$3
 #Just in case orp-threads killed before completion
 set_threads 4 $RESTART_WAIT_SECONDS
 
-orp-connections $DURATION
-orp-warmup $ITERATIONS $DURATION $RESTART_WAIT_SECONDS
-orp-protocols $DURATION
-orp-threads $ITERATIONS $DURATION $RESTART_WAIT_SECONDS 
-orp-auto-manual $DURATION
-orp-combos $DURATION
+ords-connections $DURATION
+ords-warmup $ITERATIONS $DURATION $RESTART_WAIT_SECONDS
+ords-protocols $DURATION
+ords-threads $ITERATIONS $DURATION $RESTART_WAIT_SECONDS 
+ords-auto-manual $DURATION
+ords-reverse-proxies $DURATION

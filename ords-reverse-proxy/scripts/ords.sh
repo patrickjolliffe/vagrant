@@ -158,3 +158,5 @@ END;
 /
 EXIT;
 EOF"
+
+systemctl start tomcat.service

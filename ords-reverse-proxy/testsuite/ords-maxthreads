@@ -7,7 +7,7 @@ echo Demonstrate effect of Tomcat Threads on performance
 echo ORDS connection pool is set to value of maxthreads
 echo Remember to reset maxthreads  to 8 after these tests
 echo This will happen automatically if the test is allowed to complete
-. orp-lib
+. ords-lib
 
 build_urls cache_off GET http proxy_none rest_manual 
 for THREADCOUNT in 1 2 4 8 16 32 64 128

@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-. orp-lib
+. ords-lib
 set_threads 8
 
 

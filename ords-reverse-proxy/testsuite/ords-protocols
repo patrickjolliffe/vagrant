@@ -1,7 +1,7 @@
 #!/usr/bin/bash
-. orp-lib
+. ords-lib
 DURATION=${1:-1M}
-echo orp-protocols DURATION=$DURATION
+echo ords-protocols DURATION=$DURATION
 
 echo Demonstrate characteristics of different Tomcat protocols
 

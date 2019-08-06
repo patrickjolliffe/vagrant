@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 DURATION=${1:-1M}
-. orp-lib
+. ords-lib
 
 echo Demonstrate difference between auto and manually generated REST services
 echo Manually generated should exhibit higher transaction rate

@@ -1,8 +1,8 @@
 #!/usr/bin/bash
-. orp-lib
+. ords-lib
 DURATION=${1:-1M}
 
-echo orp-connections, DURATION=$DURATION
+echo ords-connections, DURATION=$DURATION
 echo Demonstate difference between 1 and 255 siege connections...
 echo "Compare the values for 'Transaction rate' and 'Response time'"
 build_urls cache_off GET http proxy_none rest_manual

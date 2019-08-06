@@ -1,8 +1,8 @@
 #!/usr/bin/bash
-. orp-lib
+. ords-lib
 DURATION=${1:-1M}
 
-echo orp-combos DURATION=$DURATION
+echo ords-reverse-proxies DURATION=$DURATION
 
 #Allow duration as command line argment, default to one minute
 killall -9 siege 2> /dev/null
@@ -25,10 +25,10 @@ for CACHE_MODE in cache_off cache_on
 #for CACHE_MODE in cache_on
 do 
    for METHOD in GET POST
-#   for METHOD in POST
+#   for METHOD in GET
    do 
       for PROTOCOL in http https
-#         for PROTOCOL in https
+#      for PROTOCOL in https
       do 
          echo "$CACHE_MODE,$METHOD,$PROTOCOL:"
          for PROXY in proxy_none proxy_httpd proxy_nginx proxy_varnish
