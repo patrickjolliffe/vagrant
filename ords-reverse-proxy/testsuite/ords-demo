@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 #No problem if it's blank
 #Each test should provide it's own defaults
-. orp-lib
+. ords-lib
 
 DURATION=$1
 ITERATIONS=$2
