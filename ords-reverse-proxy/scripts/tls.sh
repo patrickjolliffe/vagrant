@@ -27,8 +27,8 @@ keytool -importkeystore           \
         -keypass Password123      \
         -srcstorepass Password123
 
-cat /usr/local/ssl/orp.key > /usr/local/ssl/ords.pem
-cat /usr/local/ssl/orp.crt >> /usr/local/ssl/ords.pem
+cat /usr/local/ssl/ords.key > /usr/local/ssl/ords.pem
+cat /usr/local/ssl/ords.crt >> /usr/local/ssl/ords.pem
 
 #Configure cert for wget
 echo ca_certificate=/usr/local/ssl/ords.crt >> /etc/wgetrc
