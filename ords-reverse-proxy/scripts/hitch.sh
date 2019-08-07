@@ -11,7 +11,7 @@ PIDFile=/run/hitch@%i.pid
 ExecStart=/usr/sbin/hitch --config=/etc/hitch/hitch.conf      \\
                           -p /run/hitch@%i.pid                \\
                           -f [*]:42%i0                        \\
-                          -b [orp]:41%i0
+                          -b [ords]:41%i0
 
 LimitCORE=infinity
 RuntimeDirectory=hitch
@@ -27,7 +27,7 @@ cat > /etc/hitch/hitch.conf << EOF
 daemon   = on
 user     = hitch
 group    = hitch
-pem-file = "/usr/local/ssl/orp.pem"
+pem-file = "/usr/local/ssl/ords.pem"
 EOF
 
 systemctl daemon-reload

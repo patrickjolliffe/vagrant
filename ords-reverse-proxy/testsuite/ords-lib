@@ -39,7 +39,7 @@ build_urls() {
    fi
    > /etc/siege/urls.txt
 
-   URL=$PROTOCOL'://orp:'$PORT'/ords/hr/'   
+   URL=$PROTOCOL'://ords:'$PORT'/ords/hr/'   
    if [ "$REST" = rest_manual ];
    then
       URL=$URL"demo/get_employee"

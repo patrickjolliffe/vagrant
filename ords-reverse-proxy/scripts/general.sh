@@ -1,6 +1,6 @@
 #!/bin/bash
-hostnamectl set-hostname orp
-echo 127.0.0.1   orp >> /etc/hosts
+hostnamectl set-hostname ords
+echo 127.0.0.1   ords >> /etc/hosts
 
 # fix locale warning
 yum reinstall -y glibc-common

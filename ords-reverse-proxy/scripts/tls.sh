@@ -8,28 +8,28 @@ openssl req  -nodes          \
              -new            \
              -x509           \
              -days 1024      \
-             -subj "/CN=orp" \
-             -keyout orp.key \
-             -out orp.crt
+             -subj "/CN=ords" \
+             -keyout ords.key \
+             -out ords.crt
              
-openssl pkcs12 -export                   \
-               -in orp.crt               \
-               -inkey orp.key            \
-               -out orp.p12              \
+openssl pkcs12 -export                    \
+               -in ords.crt               \
+               -inkey ords.key            \
+               -out ords.p12              \
                -passout pass:Password123
 
 keytool -importkeystore           \
-        -srckeystore orp.p12      \
+        -srckeystore ords.p12      \
         -srcstoretype PKCS12      \
-        -destkeystore orp.jks     \
+        -destkeystore ords.jks     \
         -deststoretype JKS        \
         -storepass Password123    \
         -keypass Password123      \
         -srcstorepass Password123
 
-cat /usr/local/ssl/orp.key > /usr/local/ssl/orp.pem
-cat /usr/local/ssl/orp.crt >> /usr/local/ssl/orp.pem
+cat /usr/local/ssl/orp.key > /usr/local/ssl/ords.pem
+cat /usr/local/ssl/orp.crt >> /usr/local/ssl/ords.pem
 
 #Configure cert for wget
-echo ca_certificate=/usr/local/ssl/orp.crt >> /etc/wgetrc
+echo ca_certificate=/usr/local/ssl/ords.crt >> /etc/wgetrc
 

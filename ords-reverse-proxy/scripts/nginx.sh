@@ -10,7 +10,7 @@ http {
    server {
       listen 3110;
       location / {
-         proxy_pass http://orp:1110/;
+         proxy_pass http://ords:1110/;
       }
    }
    add_header X-Proxy-Cache \$upstream_cache_status;
@@ -21,7 +21,7 @@ http {
    server {
       listen 3120;
       location / {
-         proxy_pass        http://orp:1110/;
+         proxy_pass        http://ords:1110/;
          proxy_cache       ORDS-CACHE;
          proxy_cache_valid 60m;
       }
@@ -31,7 +31,7 @@ http {
    server {
       listen 3130;
       location / {
-         proxy_pass           http://orp:1110/;
+         proxy_pass           http://ords:1110/;
          proxy_cache          ORDS-CACHE;
          proxy_cache_valid    60m;
          proxy_cache_methods  POST;
@@ -42,22 +42,22 @@ http {
    # Reverse Proxy + TLS
    server {
       listen              3210 ssl;
-      server_name         orp;
-      ssl_certificate     /usr/local/ssl/orp.crt;
-      ssl_certificate_key /usr/local/ssl/orp.key;
+      server_name         ords;
+      ssl_certificate     /usr/local/ssl/ords.crt;
+      ssl_certificate_key /usr/local/ssl/ords.key;
       location / {
-         proxy_pass http://orp:1110/;
+         proxy_pass http://ords:1110/;
       }
    }
 
    # Reverse Proxy + TLS + Cache GETs
    server {
       listen              3220 ssl;
-      server_name         orp;
-      ssl_certificate     /usr/local/ssl/orp.crt;
-      ssl_certificate_key /usr/local/ssl/orp.key;
+      server_name         ords;
+      ssl_certificate     /usr/local/ssl/ords.crt;
+      ssl_certificate_key /usr/local/ssl/ords.key;
       location / {
-         proxy_pass        http://orp:1110/;
+         proxy_pass        http://ords:1110/;
          proxy_cache       ORDS-CACHE;
          proxy_cache_valid 60m;
       }
@@ -67,10 +67,10 @@ http {
    server {
       listen              3230 ssl;
       server_name         orp;
-      ssl_certificate     /usr/local/ssl/orp.crt;
-      ssl_certificate_key /usr/local/ssl/orp.key;
+      ssl_certificate     /usr/local/ssl/ords.crt;
+      ssl_certificate_key /usr/local/ssl/ords.key;
       location / {
-         proxy_pass           http://orp:1110/;
+         proxy_pass           http://ords:1110/;
          proxy_cache          ORDS-CACHE;
          proxy_cache_valid    60m;
          proxy_cache_methods  POST;

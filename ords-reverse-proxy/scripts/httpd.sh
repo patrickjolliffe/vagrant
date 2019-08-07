@@ -17,15 +17,15 @@ CacheDetailHeader on
 #HTTP Reverse Proxy
 Listen 2110
 <VirtualHost *:2110>
-    ProxyPass        / http://orp:1110/
-    ProxyPassReverse / http://orp:1110/
+    ProxyPass        / http://ords:1110/
+    ProxyPassReverse / http://ords:1110/
 </VirtualHost>
 
 # HTTP Reverse Proxy + Cache GETs
 Listen 2120
 <VirtualHost *:2120>
-    ProxyPass        / http://orp:1110/
-    ProxyPassReverse / http://orp:1110/
+    ProxyPass        / http://ords:1110/
+    ProxyPassReverse / http://ords:1110/
     CacheEnable      disk /
     CacheRoot        /var/cache/httpd/
 </VirtualHost>
@@ -36,20 +36,20 @@ LoadModule ssl_module modules/mod_ssl.so
 Listen 2210 https
 <VirtualHost *:2210>
     SSLEngine on
-    SSLCertificateFile    /usr/local/ssl/orp.crt
-    SSLCertificateKeyFile /usr/local/ssl/orp.key
-    ProxyPass             / http://orp:1110/
-    ProxyPassReverse      / http://orp:1110/
+    SSLCertificateFile    /usr/local/ssl/ords.crt
+    SSLCertificateKeyFile /usr/local/ssl/ords.key
+    ProxyPass             / http://ords:1110/
+    ProxyPassReverse      / http://ords:1110/
 </VirtualHost>
 
 # TLS Reverse Proxy + Cache GETs
 Listen 2220 https
 <VirtualHost *:2220>
     SSLEngine on
-    SSLCertificateFile    /usr/local/ssl/orp.crt
-    SSLCertificateKeyFile /usr/local/ssl/orp.key
-    ProxyPass             / http://orp:1110/
-    ProxyPassReverse      / http://orp:1110/
+    SSLCertificateFile    /usr/local/ssl/ords.crt
+    SSLCertificateKeyFile /usr/local/ssl/ords.key
+    ProxyPass             / http://ords:1110/
+    ProxyPassReverse      / http://ords:1110/
     CacheEnable           disk  /
     CacheRoot             /var/cache/httpd/
 </VirtualHost>
